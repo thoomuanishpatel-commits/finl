@@ -45,6 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const labelTotal = document.getElementById('bill-total');
 
     let cart = [];
+    let appliedDiscount = 0;
+    let couponCodeApplied = '';
 
     // ==========================================
     // 1. Navigation Cart Indicator Update
@@ -115,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p class="cart-item-specs">${specs.join(' • ')}</p>
                 </div>
                 <div class="cart-item-price-action">
-                    <span class="cart-price">$${item.price.toFixed(2)}</span>
+                    <span class="cart-price">₹${item.price.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                     <button class="cart-remove-btn" data-index="${index}">Remove</button>
                 </div>
             `;
@@ -146,14 +148,74 @@ document.addEventListener('DOMContentLoaded', () => {
         let subtotal = 0;
         cart.forEach(item => subtotal += item.price);
 
-        const surcharge = 2.50;
-        const hygieneFee = 1.20;
-        const tax = subtotal * 0.08;
-        const total = subtotal + surcharge + hygieneFee + tax;
+        appliedDiscount = 0;
+        if (couponCodeApplied === 'WELCOME10') {
+            appliedDiscount = subtotal * 0.10;
+        } else if (couponCodeApplied === 'LIVETRUST') {
+            appliedDiscount = subtotal * 0.15;
+        } else if (couponCodeApplied === 'CHEF20') {
+            appliedDiscount = subtotal * 0.20;
+        }
 
-        if (labelSubtotal) labelSubtotal.textContent = `$${subtotal.toFixed(2)}`;
-        if (labelTax) labelTax.textContent = `$${tax.toFixed(2)}`;
-        if (labelTotal) labelTotal.textContent = `$${total.toFixed(2)}`;
+        const netSubtotal = subtotal - appliedDiscount;
+        const cgst = netSubtotal * 0.025;
+        const sgst = netSubtotal * 0.025;
+        const surcharge = 200.00;
+        const hygieneFee = 96.00;
+        const total = netSubtotal + cgst + sgst + surcharge + hygieneFee;
+
+        if (labelSubtotal) labelSubtotal.textContent = '₹' + subtotal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        
+        const labelDiscountRow = document.getElementById('bill-discount-row');
+        const labelCouponName = document.getElementById('bill-coupon-name');
+        const labelDiscount = document.getElementById('bill-discount');
+        
+        if (appliedDiscount > 0) {
+            if (labelDiscountRow) labelDiscountRow.style.display = 'flex';
+            if (labelCouponName) labelCouponName.textContent = couponCodeApplied;
+            if (labelDiscount) labelDiscount.textContent = '-₹' + appliedDiscount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        } else {
+            if (labelDiscountRow) labelDiscountRow.style.display = 'none';
+        }
+
+        const labelCgst = document.getElementById('bill-cgst');
+        const labelSgst = document.getElementById('bill-sgst');
+        if (labelCgst) labelCgst.textContent = '₹' + cgst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        if (labelSgst) labelSgst.textContent = '₹' + sgst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        if (labelTotal) labelTotal.textContent = '₹' + total.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    // Coupon Apply Listener
+    const couponInput = document.getElementById('coupon-code-input');
+    const btnApplyCoupon = document.getElementById('btn-apply-coupon');
+    const msgCouponStatus = document.getElementById('coupon-status-msg');
+
+    if (btnApplyCoupon && couponInput) {
+        btnApplyCoupon.addEventListener('click', () => {
+            const code = couponInput.value.trim().toUpperCase();
+            if (!code) {
+                showToast("⚠️ Please enter a coupon code.");
+                return;
+            }
+
+            if (code === 'WELCOME10' || code === 'LIVETRUST' || code === 'CHEF20') {
+                couponCodeApplied = code;
+                calculateBillTotals();
+                showToast(`🎉 Coupon ${code} applied successfully!`);
+                if (msgCouponStatus) {
+                    msgCouponStatus.style.display = 'block';
+                    msgCouponStatus.style.color = '#4dff88';
+                    msgCouponStatus.textContent = `Coupon ${code} applied successfully!`;
+                }
+            } else {
+                showToast("⚠️ Invalid coupon code.");
+                if (msgCouponStatus) {
+                    msgCouponStatus.style.display = 'block';
+                    msgCouponStatus.style.color = '#ff4d4d';
+                    msgCouponStatus.textContent = "Invalid coupon code.";
+                }
+            }
+        });
     }
 
     renderCart();
@@ -228,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         line.className = 'rec-item-line';
                         line.innerHTML = `
                             <span>${item.name} (${item.spice} Spice)</span>
-                            <span>$${item.price.toFixed(2)}</span>
+                            <span>₹${item.price.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                         `;
                         recItemsHolder.appendChild(line);
                     });
@@ -236,10 +298,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 let subtotal = 0;
                 cart.forEach(item => subtotal += item.price);
-                const totalCharge = subtotal + 3.70 + (subtotal * 0.08);
+                
+                let recDiscountAmount = 0;
+                if (couponCodeApplied === 'WELCOME10') {
+                    recDiscountAmount = subtotal * 0.10;
+                } else if (couponCodeApplied === 'LIVETRUST') {
+                    recDiscountAmount = subtotal * 0.15;
+                } else if (couponCodeApplied === 'CHEF20') {
+                    recDiscountAmount = subtotal * 0.20;
+                }
 
-                if (recSubtotal) recSubtotal.textContent = `$${subtotal.toFixed(2)}`;
-                if (recTotal) recTotal.textContent = `$${totalCharge.toFixed(2)}`;
+                const netSubtotal = subtotal - recDiscountAmount;
+                const cgst = netSubtotal * 0.025;
+                const sgst = netSubtotal * 0.025;
+                const surcharge = 200.00;
+                const hygieneFee = 96.00;
+                const totalCharge = netSubtotal + cgst + sgst + surcharge + hygieneFee;
+
+                if (recSubtotal) recSubtotal.textContent = '₹' + subtotal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                
+                const recDiscountRow = document.getElementById('rec-discount-row');
+                const recDiscount = document.getElementById('rec-discount');
+                if (recDiscountAmount > 0) {
+                    if (recDiscountRow) recDiscountRow.style.display = 'flex';
+                    if (recDiscount) recDiscount.textContent = '-₹' + recDiscountAmount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                } else {
+                    if (recDiscountRow) recDiscountRow.style.display = 'none';
+                }
+
+                const recCgst = document.getElementById('rec-cgst');
+                const recSgst = document.getElementById('rec-sgst');
+                if (recCgst) recCgst.textContent = '₹' + cgst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                if (recSgst) recSgst.textContent = '₹' + sgst.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                if (recTotal) recTotal.textContent = '₹' + totalCharge.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
                 if (recChefName) recChefName.textContent = assignedChef.name;
                 if (recChefStation) recChefStation.textContent = assignedChef.station;

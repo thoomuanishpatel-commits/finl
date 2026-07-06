@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Update Panel Heading
             if (customItemName) customItemName.textContent = itemName;
-            if (customItemPrice) customItemPrice.textContent = `$${itemPrice}`;
+            if (customItemPrice) customItemPrice.textContent = '₹' + parseFloat(itemPrice).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
             // Reset states
             selectedSpice = 'Medium';
@@ -282,7 +282,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     el.style.color = 'var(--primary)';
                     setTimeout(() => {
                         el.style.transform = 'scale(1)';
-                        el.style.color = '#fff';
+                        if (el === elEco) {
+                            if (baseCO2 < 1.0) el.style.color = '#4dff88';
+                            else if (baseCO2 < 2.0) el.style.color = '#ffcc00';
+                            else el.style.color = '#ff4d4d';
+                        } else {
+                            el.style.color = '#fff';
+                        }
                     }, 200);
                 });
             }
@@ -448,7 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.classList.remove('surge-active', 'discount-active');
             const basePrice = parseFloat(card.getAttribute('data-price'));
             const priceTag = card.querySelector('.item-price');
-            if (priceTag) priceTag.textContent = `$${basePrice.toFixed(2)}`;
+            if (priceTag) priceTag.textContent = '₹' + basePrice.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         });
 
         // Pick random category and multiplier
@@ -462,7 +468,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const newPrice = basePrice * mult;
                 const priceTag = card.querySelector('.item-price');
                 if (priceTag) {
-                    priceTag.textContent = `$${newPrice.toFixed(2)}`;
+                    priceTag.textContent = '₹' + newPrice.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                 }
                 
                 if (isSurge) {
@@ -509,14 +515,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>${desc}</p>
                     </div>
                     <div>
-                        <span class="cart-item-price">$${item.price.toFixed(2)}</span>
+                        <span class="cart-item-price">₹${item.price.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
                         <button class="cart-remove-btn" data-index="${index}">✖</button>
                     </div>
                 `;
                 cartContainer.appendChild(row);
             });
         }
-        cartTotalAmount.textContent = `$${total.toFixed(2)}`;
+        cartTotalAmount.textContent = '₹' + total.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
         // Attach remove events
         const removeBtns = cartContainer.querySelectorAll('.cart-remove-btn');

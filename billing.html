@@ -75,25 +75,43 @@
                             <div class="breakdown-rows">
                                 <div class="breakdown-row">
                                     <span>Items Subtotal</span>
-                                    <span id="bill-subtotal">$0.00</span>
+                                    <span id="bill-subtotal">₹0.00</span>
+                                </div>
+                                <div class="breakdown-row" id="bill-discount-row" style="display: none; color: #4dff88;">
+                                    <span>Coupon Discount (<span id="bill-coupon-name"></span>)</span>
+                                    <span id="bill-discount">-₹0.00</span>
+                                </div>
+                                <div class="breakdown-row">
+                                    <span>CGST (2.5%)</span>
+                                    <span id="bill-cgst">₹0.00</span>
+                                </div>
+                                <div class="breakdown-row">
+                                    <span>SGST (2.5%)</span>
+                                    <span id="bill-sgst">₹0.00</span>
                                 </div>
                                 <div class="breakdown-row">
                                     <span>Organic Logistics Surcharge</span>
-                                    <span id="bill-surcharge">$2.50</span>
+                                    <span id="bill-surcharge">₹200.00</span>
                                 </div>
                                 <div class="breakdown-row">
                                     <span>Hygiene Camera Audit Fee</span>
-                                    <span id="bill-hygiene-fee">$1.20</span>
-                                </div>
-                                <div class="breakdown-row">
-                                    <span>Sales Tax (GST 8%)</span>
-                                    <span id="bill-tax">$0.00</span>
+                                    <span id="bill-hygiene-fee">₹96.00</span>
                                 </div>
                                 <div class="breakdown-row total-row">
                                     <span>Total Price</span>
-                                    <span id="bill-total">$0.00</span>
+                                    <span id="bill-total">₹0.00</span>
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- Coupon Code Card -->
+                        <div class="coupon-code-card" style="margin-top: 1rem; background: var(--bg-glass); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 1.5rem;">
+                            <h4 style="margin: 0; font-size: 1.1rem; color: var(--text-white);">🏷️ Dynamic Discount Coupon</h4>
+                            <div class="coupon-input-group" style="display: flex; gap: 10px; margin-top: 0.8rem;">
+                                <input type="text" id="coupon-code-input" class="custom-input" placeholder="e.g. WELCOME10" style="flex-grow: 1; text-transform: uppercase; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-glass); color: white; padding: 0.6rem; border-radius: var(--radius-sm);">
+                                <button type="button" class="btn btn-outline" id="btn-apply-coupon" style="padding: 0 1.2rem; background: transparent; border: 1px solid var(--primary); color: var(--primary); cursor: pointer; border-radius: var(--radius-sm); transition: all 0.3s ease;">Apply</button>
+                            </div>
+                            <p id="coupon-status-msg" style="font-size: 0.8rem; margin-top: 0.5rem; display: none;"></p>
                         </div>
 
                         <!-- Mock Payment Form -->
@@ -148,15 +166,27 @@
                             <div class="rec-totals">
                                 <div class="rec-total-line">
                                     <span>Subtotal:</span>
-                                    <span id="rec-subtotal">$0.00</span>
+                                    <span id="rec-subtotal">₹0.00</span>
+                                </div>
+                                <div class="rec-total-line" id="rec-discount-row" style="display: none; color: #4dff88;">
+                                    <span>Discount Applied:</span>
+                                    <span id="rec-discount">-₹0.00</span>
+                                </div>
+                                <div class="rec-total-line">
+                                    <span>CGST (2.5%):</span>
+                                    <span id="rec-cgst">₹0.00</span>
+                                </div>
+                                <div class="rec-total-line">
+                                    <span>SGST (2.5%):</span>
+                                    <span id="rec-sgst">₹0.00</span>
                                 </div>
                                 <div class="rec-total-line">
                                     <span>Logistics & Hygiene Fees:</span>
-                                    <span>$3.70</span>
+                                    <span>₹296.00</span>
                                 </div>
                                 <div class="rec-total-line total">
                                     <span>Total Charged:</span>
-                                    <span id="rec-total">$0.00</span>
+                                    <span id="rec-total">₹0.00</span>
                                 </div>
                             </div>
 

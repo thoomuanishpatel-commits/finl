@@ -3,6 +3,21 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Sync Cart Indicator on Load
+    function updateCartIndicator() {
+        const cartLink = document.getElementById('nav-billing-link');
+        if (!cartLink) return;
+
+        let cart = [];
+        try {
+            const cartData = localStorage.getItem('live_kitchen_cart');
+            if (cartData) cart = JSON.parse(cartData);
+        } catch (e) {
+            console.error("Cart error", e);
+        }
+        cartLink.textContent = `Billing (${cart.length})`;
+    }
+    updateCartIndicator();
     
     // ==========================================
     // 1. Navigation & Mobile Menu Menu Toggle
