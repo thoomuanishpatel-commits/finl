@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us & Visit | Live Kitchen</title>
+    <meta name="description" content="Get restaurant timings, valet parking guidelines, addresses, phone support details, and view maps.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🍳</span>
+                <span class="logo-text">LiveKitchen</span>
+            </a>
+            <nav class="nav-bar" id="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="menu.html" class="nav-link">Menu</a>
+                <a href="takeaway.html" class="nav-link">Table & Takeaway</a>
+                <a href="live.html" class="nav-link">Live Kitchen</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="feedback.html" class="nav-link">Feedback</a>
+                <a href="billing.html" class="nav-link" id="nav-billing-link">Billing (0)</a>
+                <a href="contact.html" class="nav-link active">Contact</a>
+                <div class="nav-indicator"></div>
+            </nav>
+            <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Menu">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="page-padding">
+        <section class="find-us-section" style="padding-top: 20px;">
+            <div class="container">
+                <div class="find-us-layout">
+                    <!-- Left: Restaurant Info -->
+                    <div class="find-info">
+                        <span class="section-tag">VISIT & CONTACT</span>
+                        <h2>Get In Touch</h2>
+                        <p class="find-desc">Have questions about our transparency protocols, farm sourcing, or group reservations? Drop us a line or visit us physically.</p>
+                        
+                        <div class="info-blocks">
+                            <div class="info-block">
+                                <div class="info-icon">📍</div>
+                                <div class="info-text">
+                                    <h5>Restaurant Address</h5>
+                                    <p>84 Culinary Boulevard, Food District, Sector-5, City</p>
+                                </div>
+                            </div>
+                            <div class="info-block">
+                                <div class="info-icon">🕒</div>
+                                <div class="info-text">
+                                    <h5>Opening Hours</h5>
+                                    <p>Mon - Sun: 11:00 AM - 11:30 PM</p>
+                                </div>
+                            </div>
+                            <div class="info-block">
+                                <div class="info-icon">📞</div>
+                                <div class="info-text">
+                                    <h5>Phone & Email</h5>
+                                    <p>+1 (555) 982-1200 | support@livekitchen.com</p>
+                                </div>
+                            </div>
+                            <div class="info-block">
+                                <div class="info-icon">🚗</div>
+                                <div class="info-text">
+                                    <h5>Valet Parking & Curbside Lanes</h5>
+                                    <p>Free valet parking underground. Takeaway pick-up lanes 1 & 2 are located directly in front of the main lobby entry.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Interactive Styled Map (SVG/CSS Mockup) -->
+                    <div class="find-map">
+                        <div class="map-container">
+                            <div id="mock-map">
+                                <div class="map-glow"></div>
+                                <div class="map-streets"></div>
+                                <div class="map-pin">
+                                    <div class="pin-ring"></div>
+                                    <div class="pin-dot"></div>
+                                    <div class="pin-bubble">Live Kitchen Restaurant</div>
+                                </div>
+                                <div class="map-controls">
+                                    <button class="map-zoom-btn" id="map-zoom-in">+</button>
+                                    <button class="map-zoom-btn" id="map-zoom-out">-</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Contact Inquiry Form -->
+        <section class="contact-form-section" style="padding: 60px 0 100px;">
+            <div class="container" style="max-width: 700px;">
+                <div class="glass-checkout-card">
+                    <h3 style="text-align: center; margin-bottom: 0.5rem;">📬 Send Us a Message</h3>
+                    <p style="text-align: center; color: var(--text-muted); font-size: 0.85rem; margin-bottom: 2rem;">Our administrative staff replies back within 2 business hours.</p>
+                    
+                    <form class="dine-in-inputs-form" id="contact-inquiry-form">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="cnt-name" class="custom-input" placeholder="e.g. Marcus Aurelius" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="cnt-email" class="custom-input" placeholder="e.g. marcus@philosophy.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Subject</label>
+                            <select id="cnt-subject" class="custom-select">
+                                <option value="general" selected>General Inquiry</option>
+                                <option value="catering">Event Catering & Bulk Orders</option>
+                                <option value="farm">Organic Sourcing Logistics</option>
+                                <option value="tech">Live Camera Streaming / API issues</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Your Message</label>
+                            <textarea id="cnt-message" class="custom-textarea" rows="4" placeholder="How can we help you?" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Send Secure Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <span class="logo-icon">🍳</span>
+                    <span class="logo-text">LiveKitchen</span>
+                </a>
+                <p>Redefining culinary trust through real-time camera tracking and premium-quality organic components. Taste the transparency.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">🌐</a>
+                    <a href="#" aria-label="Instagram">📸</a>
+                    <a href="#" aria-label="Twitter">🐦</a>
+                    <a href="#" aria-label="YouTube">🎥</a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Our Menu</a></li>
+                    <li><a href="takeaway.html">Table & Takeaway</a></li>
+                    <li><a href="live.html">Live Kitchen</a></li>
+                    <li><a href="about.html">Our Chefs</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Legal & Info</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Hygiene Certificate</a></li>
+                    <li><a href="#">HACCP Compliance</a></li>
+                    <li><a href="contact.html">Contact Support</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-newsletter">
+                <h4>Stay Updated</h4>
+                <p>Subscribe to receive news about new chefs, recipes, and organic farms.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required class="newsletter-input">
+                    <button type="submit" class="btn btn-primary btn-sm">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container bottom-bar">
+                <p>&copy; 2026 LiveKitchen Inc. All rights reserved.</p>
+                <p>Designed with absolute transparency.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    // Sliding Navigation Link Indicator & Mouse Hover slide animations
+    const navLinksList = document.querySelectorAll("#main-nav .nav-link:not(.portal-link)");
+    const navIndicator = document.querySelector("#main-nav .nav-indicator");
+
+    function updateNavIndicator() {
+        const activeLink = document.querySelector("#main-nav .nav-link.active");
+        if (activeLink && navIndicator) {
+            navIndicator.style.width = activeLink.offsetWidth + "px";
+            navIndicator.style.left = activeLink.offsetLeft + "px";
+        }
+    }
+
+    setTimeout(updateNavIndicator, 150);
+    window.addEventListener("resize", updateNavIndicator);
+
+    navLinksList.forEach(link => {
+        link.addEventListener("mouseenter", () => {
+            if (navIndicator) {
+                navIndicator.style.width = link.offsetWidth + "px";
+                navIndicator.style.left = link.offsetLeft + "px";
+            }
+        });
+    });
+
+    const navBar = document.getElementById("main-nav");
+    if (navBar) {
+        navBar.addEventListener("mouseleave", () => {
+            updateNavIndicator();
+        });
+    }
+
+            // Cart count indicator
+            const cartLink = document.getElementById('nav-billing-link');
+            if (cartLink) {
+                let cart = [];
+                try {
+                    const cartData = localStorage.getItem('live_kitchen_cart');
+                    if (cartData) cart = JSON.parse(cartData);
+                } catch(e) {}
+                cartLink.textContent = `Billing (${cart.length})`;
+            }
+
+            // Interactive Map zoom mockup
+            const mapZoomIn = document.getElementById('map-zoom-in');
+            const mapZoomOut = document.getElementById('map-zoom-out');
+            const mapStreets = document.querySelector('.map-streets');
+            let currentZoom = 1.0;
+            
+            if (mapZoomIn && mapStreets) {
+                mapZoomIn.addEventListener('click', () => {
+                    currentZoom = Math.min(2.0, currentZoom + 0.15);
+                    mapStreets.style.transform = `scale(${currentZoom})`;
+                });
+            }
+            if (mapZoomOut && mapStreets) {
+                mapZoomOut.addEventListener('click', () => {
+                    currentZoom = Math.max(0.7, currentZoom - 0.15);
+                    mapStreets.style.transform = `scale(${currentZoom})`;
+                });
+            }
+
+            // Form Submit Toast alert alert
+            const contactForm = document.getElementById('contact-inquiry-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    showToast("✨ Support inquiry message sent successfully!");
+                    contactForm.reset();
+                });
+            }
+
+            function showToast(message) {
+                const toast = document.createElement('div');
+                toast.className = 'custom-toast-alert';
+                toast.textContent = message;
+                document.body.appendChild(toast);
+
+                setTimeout(() => toast.classList.add('active'), 50);
+
+                setTimeout(() => {
+                    toast.classList.remove('active');
+                    setTimeout(() => toast.remove(), 400);
+                }, 3500);
+            }
+        });
+    </script>
+</body>
+</html>

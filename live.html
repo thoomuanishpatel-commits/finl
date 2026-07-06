@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Kitchen Streams | Live Kitchen</title>
+    <meta name="description" content="Watch our transparent glass kitchen streams live. Trace all chefs, temperatures, and sanitation checks.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🍳</span>
+                <span class="logo-text">LiveKitchen</span>
+            </a>
+            <nav class="nav-bar" id="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="menu.html" class="nav-link">Menu</a>
+                <a href="takeaway.html" class="nav-link">Table & Takeaway</a>
+                <a href="live.html" class="nav-link active">Live Kitchen</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="feedback.html" class="nav-link">Feedback</a>
+                <a href="billing.html" class="nav-link" id="nav-billing-link">Billing (0)</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <div class="nav-indicator"></div>
+            </nav>
+            <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Menu">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="page-padding">
+        <section class="live-hub-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">LIVE STREAM HUB</span>
+                    <h2 class="section-title">Transparent Cooking Feed Center</h2>
+                    <p class="section-desc">Audit our stations from anywhere. Check live pans, oven temperatures, AI health checks, and scale weights in real time.</p>
+                </div>
+
+                <!-- Live Command Dashboard Grid -->
+                <div class="live-hub-grid">
+                    
+                    <!-- Left: Stream Grid (5 Feeds) -->
+                    <div class="live-feeds-pane">
+                        <div class="live-cams-layout">
+                            
+                            <!-- Cam 1 -->
+                            <div class="live-cam-card active-card" data-cam="1">
+                                <div class="cam-viewport-wrapper">
+                                    <video src="assets/videos/pasta.mp4" autoplay loop muted playsinline class="hub-stream-video"></video>
+                                    <span class="cam-status-overlay live">LIVE</span>
+                                    <span class="cam-label">CAM 01 - PASTA & SKILLET STAGE</span>
+                                    <div class="cheer-container">
+                                        <button class="cheer-btn" title="Cheer for Chef!">🔥</button>
+                                        <button class="cheer-btn" title="Cheer for Chef!">👏</button>
+                                        <button class="cheer-btn" title="Cheer for Chef!">❤️</button>
+                                    </div>
+                                </div>
+                                <div class="cam-info-bar">
+                                    <h5>Chef Sanjay Kumar</h5>
+                                    <p>Preparing: Arrabiata Pasta • Pan Temp: <span class="amber-text">185°C</span></p>
+                                </div>
+                            </div>
+
+                            <!-- Cam 2 -->
+                            <div class="live-cam-card" data-cam="2">
+                                <div class="cam-viewport-wrapper">
+                                    <video src="assets/videos/pizza.mp4" autoplay loop muted playsinline class="hub-stream-video"></video>
+                                    <span class="cam-status-overlay live">LIVE</span>
+                                    <span class="cam-label">CAM 02 - WOOD-FIRED PIZZA OVEN</span>
+                                    <div class="cheer-container">
+                                        <button class="cheer-btn" title="Cheer for Chef!">🔥</button>
+                                        <button class="cheer-btn" title="Cheer for Chef!">👏</button>
+                                        <button class="cheer-btn" title="Cheer for Chef!">❤️</button>
+                                    </div>
+                                </div>
+                                <div class="cam-info-bar">
+                                    <h5>Chef Maria Rodriguez</h5>
+                                    <p>Preparing: Truffle Pizza • Oven Temp: <span class="amber-text">380°C</span></p>
+                                </div>
+                            </div>
+
+                            <!-- Cam 3 -->
+                            <div class="live-cam-card" data-cam="3">
+                                <div class="cam-viewport-wrapper">
+                                    <video src="assets/videos/tiramisu.mp4" autoplay loop muted playsinline class="hub-stream-video"></video>
+                                    <span class="cam-status-overlay live">LIVE</span>
+                                    <span class="cam-label">CAM 03 - COLD PREP & GARNISHING</span>
+                                    <div class="cheer-container">
+                                        <button class="cheer-btn" title="Cheer for Chef!">🔥</button>
+                                        <button class="cheer-btn" title="Cheer for Chef!">👏</button>
+                                        <button class="cheer-btn" title="Cheer for Chef!">❤️</button>
+                                    </div>
+                                </div>
+                                <div class="cam-info-bar">
+                                    <h5>Chef Liam O'Connor</h5>
+                                    <p>Preparing: Tiramisu Desserts • Prep Temp: <span class="green-text">4°C</span></p>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                    <!-- Right: Live Statistics & Sanitation Log Feed -->
+                    <div class="live-sidebar-pane">
+                        
+                        <!-- Telemetry Grid -->
+                        <div class="telemetry-dashboard-card">
+                            <h4>📊 Kitchen Telemetry Board</h4>
+                            <div class="telemetry-values-grid">
+                                <div class="tel-item">
+                                    <span class="tel-lbl">Active Stations</span>
+                                    <span class="tel-val green-text">5 / 5</span>
+                                </div>
+                                <div class="tel-item">
+                                    <span class="tel-lbl">Orders in Queue</span>
+                                    <span class="tel-val amber-text">14</span>
+                                </div>
+                                <div class="tel-item">
+                                    <span class="tel-lbl">Average Prep Speed</span>
+                                    <span class="tel-val">17.5m</span>
+                                </div>
+                                <div class="tel-item">
+                                    <span class="tel-lbl">Sanitization Index</span>
+                                    <span class="tel-val green-text">99.8%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sanitation Logs -->
+                        <div class="sanitation-logger-card">
+                            <h4>🧼 Real-time Integrity Checklist</h4>
+                            <p class="logger-subtitle">Blink updates direct from smart workstation cameras and sensors.</p>
+                            <div class="logger-lines-feed" id="sanitation-log-feed">
+                                <div class="log-line">
+                                    <span class="log-time">[17:48:12]</span>
+                                    <span class="log-msg">Station-1 handwash logs validated for Chef Sanjay.</span>
+                                </div>
+                                <div class="log-line">
+                                    <span class="log-time">[17:47:05]</span>
+                                    <span class="log-msg">AI audit: gloves and mask verification verified at Station-2.</span>
+                                </div>
+                                <div class="log-line">
+                                    <span class="log-time">[17:45:22]</span>
+                                    <span class="log-msg">UV disinfection cycle finalized in packaging unit 3.</span>
+                                </div>
+                                <div class="log-line">
+                                    <span class="log-time">[17:43:55]</span>
+                                    <span class="log-msg">Packing scale weight calibration check: OK (Tolerance 0.1g).</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Fullscreen Expander card teaser -->
+                        <div class="cam-control-action-card">
+                            <h4>🖥️ Dynamic CCTV Expander</h4>
+                            <p>Click any video stream feed on the left to highlight and sync real-time camera details in the hub.</p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <span class="logo-icon">🍳</span>
+                    <span class="logo-text">LiveKitchen</span>
+                </a>
+                <p>Redefining culinary trust through real-time camera tracking and premium-quality organic components. Taste the transparency.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">🌐</a>
+                    <a href="#" aria-label="Instagram">📸</a>
+                    <a href="#" aria-label="Twitter">🐦</a>
+                    <a href="#" aria-label="YouTube">🎥</a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Our Menu</a></li>
+                    <li><a href="takeaway.html">Table & Takeaway</a></li>
+                    <li><a href="live.html">Live Kitchen</a></li>
+                    <li><a href="about.html">Our Chefs</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Legal & Info</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Hygiene Certificate</a></li>
+                    <li><a href="#">HACCP Compliance</a></li>
+                    <li><a href="contact.html">Contact Support</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-newsletter">
+                <h4>Stay Updated</h4>
+                <p>Subscribe to receive news about new chefs, recipes, and organic farms.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required class="newsletter-input">
+                    <button type="submit" class="btn btn-primary btn-sm">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container bottom-bar">
+                <p>&copy; 2026 LiveKitchen Inc. All rights reserved.</p>
+                <p>Designed with absolute transparency.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Logic -->
+    <script src="live.js"></script>
+</body>
+</html>

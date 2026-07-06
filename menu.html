@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Menu | Live Kitchen</title>
+    <meta name="description" content="Browse our organic menu, customize spice levels and ingredients, and watch your food prepared live.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🍳</span>
+                <span class="logo-text">LiveKitchen</span>
+            </a>
+            <nav class="nav-bar" id="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="menu.html" class="nav-link active">Menu</a>
+                <a href="takeaway.html" class="nav-link">Table & Takeaway</a>
+                <a href="live.html" class="nav-link">Live Kitchen</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="feedback.html" class="nav-link">Feedback</a>
+                <a href="billing.html" class="nav-link" id="nav-billing-link">Billing (0)</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <div class="nav-indicator"></div>
+            </nav>
+            <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Menu">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="page-padding">
+        <section class="menu-page-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">OUR KITCHEN MENUS</span>
+                    <h2 class="section-title">Organic & Custom Prepared</h2>
+                    <p class="section-desc">Pick a dish, customize every single ingredient to your exact preference, and add it to your order. We cook only what you authorize.</p>
+                </div>
+
+                <!-- Menu Layout: Left Side categories/items, Right Side Live Customizer -->
+                <div class="menu-layout-grid">
+                    
+                    <!-- Left: Category Tabs & Food Cards Grid -->
+                    <div class="menu-items-pane">
+                        <div class="category-tabs" id="menu-category-tabs">
+                            <button class="cat-tab-btn active" data-category="all">All Items</button>
+                            <button class="cat-tab-btn" data-category="pizza">Wood-fired Pizzas 🍕</button>
+                            
+                            <!-- Dietary Filters -->
+                            <div class="dietary-filters" id="dietary-filters">
+                                <button class="diet-chip active" data-filter="all">All Items</button>
+                                <button class="diet-chip" data-filter="vegan">Vegan 🌱</button>
+                                <button class="diet-chip" data-filter="gf">Gluten-Free 🌾</button>
+                                <button class="diet-chip" data-filter="nut-free">Nut Allergy Safe 🥜🚫</button>
+                            </div>
+                            <button class="cat-tab-btn" data-category="pasta">Artisanal Pastas 🍝</button>
+                            <button class="cat-tab-btn" data-category="salad">Fresh Salads 🥗</button>
+                            <button class="cat-tab-btn" data-category="dessert">Desserts 🍰</button>
+                        </div>
+
+                        <div class="menu-cards-grid" id="menu-cards-grid">
+                            <!-- Items will be generated dynamically or rendered directly -->
+                            <!-- Item 1: Truffle Mushroom Pizza -->
+                            <div class="menu-item-card" data-category="pizza" data-id="p1" data-name="Truffle Mushroom Pizza" data-price="21.00" data-diet="nut-free">
+                                <div class="item-visual-thumb">🍄🍕</div>
+                                <div class="item-body">
+                                    <div class="item-meta-row">
+                                        <span class="item-organic-badge">🥬 100% Organic</span>
+                                        <span class="item-calories">490 kcal</span>
+                                    </div>
+                                    <h3>Truffle Mushroom Pizza</h3>
+                                    <p>Shaved black truffle, organic wild porcini mushrooms, fresh buffalo mozzarella, virgin olive oil drizzle.</p>
+                                    <div class="item-footer-row">
+                                        <span class="item-price">$21.00</span>
+                                        <div class="item-actions-btns">
+                                            <button class="btn btn-sm btn-outline customize-trigger-btn">Customize</button>
+                                            <button class="btn btn-sm btn-primary add-direct-btn">Add to Cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Item 2: Truffle Penne Pasta -->
+                            <div class="menu-item-card" data-category="pasta" data-id="p2" data-name="Truffle Penne Pasta" data-price="19.50" data-diet="nut-free">
+                                <div class="item-visual-thumb">🍝🍄</div>
+                                <div class="item-body">
+                                    <div class="item-meta-row">
+                                        <span class="item-organic-badge">🥬 100% Organic</span>
+                                        <span class="item-calories">420 kcal</span>
+                                    </div>
+                                    <h3>Truffle Penne Pasta</h3>
+                                    <p>Organic penne pasta tossed in truffle cream sauce, freshly grated parmesan, garnished with fresh basil.</p>
+                                    <div class="item-footer-row">
+                                        <span class="item-price">$19.50</span>
+                                        <div class="item-actions-btns">
+                                            <button class="btn btn-sm btn-outline customize-trigger-btn">Customize</button>
+                                            <button class="btn btn-sm btn-primary add-direct-btn">Add to Cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Item 3: Spicy Arrabiata Pasta -->
+                            <div class="menu-item-card" data-category="pasta" data-id="p3" data-name="Spicy Arrabiata Pasta" data-price="17.00" data-diet="vegan gf nut-free">
+                                <div class="item-visual-thumb">🌶️🍝</div>
+                                <div class="item-body">
+                                    <div class="item-meta-row">
+                                        <span class="item-organic-badge">🥬 100% Organic</span>
+                                        <span class="item-calories">380 kcal</span>
+                                    </div>
+                                    <h3>Spicy Arrabiata Pasta</h3>
+                                    <p>Garlic-sauteed organic cherry tomatoes, red chili flakes, pomodoro reduction, extra virgin olive oil, herbs.</p>
+                                    <div class="item-footer-row">
+                                        <span class="item-price">$17.00</span>
+                                        <div class="item-actions-btns">
+                                            <button class="btn btn-sm btn-outline customize-trigger-btn">Customize</button>
+                                            <button class="btn btn-sm btn-primary add-direct-btn">Add to Cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Item 4: Avocado Caprese Salad -->
+                            <div class="menu-item-card" data-category="salad" data-id="p4" data-name="Avocado Caprese Salad" data-price="15.00" data-diet="gf nut-free">
+                                <div class="item-visual-thumb">🥑🥗</div>
+                                <div class="item-body">
+                                    <div class="item-meta-row">
+                                        <span class="item-organic-badge">🥬 100% Organic</span>
+                                        <span class="item-calories">290 kcal</span>
+                                    </div>
+                                    <h3>Avocado Caprese Salad</h3>
+                                    <p>Organic Hass avocados, fresh cherry tomatoes, heirloom mozzarella pearls, fresh basil leaves, aged balsamic reduction.</p>
+                                    <div class="item-footer-row">
+                                        <span class="item-price">$15.00</span>
+                                        <div class="item-actions-btns">
+                                            <button class="btn btn-sm btn-outline customize-trigger-btn">Customize</button>
+                                            <button class="btn btn-sm btn-primary add-direct-btn">Add to Cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Item 5: Wood-Fired Margherita Pizza -->
+                            <div class="menu-item-card" data-category="pizza" data-id="p5" data-name="Wood-Fired Margherita" data-price="16.50" data-diet="nut-free">
+                                <div class="item-visual-thumb">🍅🍕</div>
+                                <div class="item-body">
+                                    <div class="item-meta-row">
+                                        <span class="item-organic-badge">🥬 100% Organic</span>
+                                        <span class="item-calories">410 kcal</span>
+                                    </div>
+                                    <h3>Wood-Fired Margherita</h3>
+                                    <p>San Marzano organic tomato sauce, fresh heirloom mozzarella, fresh garden basil, hand-stretched wheat crust.</p>
+                                    <div class="item-footer-row">
+                                        <span class="item-price">$16.50</span>
+                                        <div class="item-actions-btns">
+                                            <button class="btn btn-sm btn-outline customize-trigger-btn">Customize</button>
+                                            <button class="btn btn-sm btn-primary add-direct-btn">Add to Cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Item 6: Deconstructed Tiramisu -->
+                            <div class="menu-item-card" data-category="dessert" data-id="p6" data-name="Deconstructed Tiramisu" data-price="12.00" data-diet="nut-free">
+                                <div class="item-visual-thumb">☕🍰</div>
+                                <div class="item-body">
+                                    <div class="item-meta-row">
+                                        <span class="item-organic-badge">🥬 100% Organic</span>
+                                        <span class="item-calories">340 kcal</span>
+                                    </div>
+                                    <h3>Deconstructed Tiramisu</h3>
+                                    <p>Organic espresso-soaked ladyfingers, whipped farm mascarpone cream, dark cocoa dustings, gold leaf garnish.</p>
+                                    <div class="item-footer-row">
+                                        <span class="item-price">$12.00</span>
+                                        <div class="item-actions-btns">
+                                            <button class="btn btn-sm btn-outline customize-trigger-btn">Customize</button>
+                                            <button class="btn btn-sm btn-primary add-direct-btn">Add to Cart</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Live Interactive Customizer Panel -->
+                    <div class="menu-customizer-panel">
+                        <div class="customizer-card" id="recipe-customizer-card">
+                            <div class="customizer-empty-state" id="customizer-empty-state">
+                                <h3>🌶️ Customizer Active</h3>
+                                <p>Select "Customize" on any menu card to build your custom ingredient specifications.</p>
+                            </div>
+                            
+                            <div class="customizer-content-state" id="customizer-content-state" style="display: none;">
+                                <div class="custom-panel-head">
+                                    <span class="custom-item-badge">CUSTOM PREP</span>
+                                    <h4 id="custom-item-name">Truffle Mushroom Pizza</h4>
+                                    <span class="custom-base-price" id="custom-item-price">$21.00</span>
+                                </div>
+
+                                <div class="customizer-scroller">
+                                    <!-- Spice Selector -->
+                                    <div class="form-group">
+                                        <label>Spice Level</label>
+                                        <div class="spice-selector">
+                                            <button type="button" class="spice-btn" data-val="Mild">Mild 🌿</button>
+                                            <button type="button" class="spice-btn active" data-val="Medium">Medium 🌶</button>
+                                            <button type="button" class="spice-btn" data-val="Extra Hot">Extra Hot 🌶🔥</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Exclusions Checkboxes -->
+                                    <div class="form-group">
+                                        <label>Ingredient Adjustments</label>
+                                        <div class="exclusion-checkboxes">
+                                            <label class="checkbox-container">
+                                                <input type="checkbox" id="ex-cheese">
+                                                <span class="checkmark"></span> Extra Cheese 🧀
+                                            </label>
+                                            <label class="checkbox-container">
+                                                <input type="checkbox" id="ex-onion">
+                                                <span class="checkmark"></span> No Onion 🧅
+                                            </label>
+                                            <label class="checkbox-container">
+                                                <input type="checkbox" id="ex-garlic">
+                                                <span class="checkmark"></span> No Garlic 🧄
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Oil Select -->
+                                    <div class="form-group">
+                                        <label>Oil Preference</label>
+                                        <select id="ex-oil" class="custom-select">
+                                            <option value="olive">Extra Virgin Olive Oil 🫒</option>
+                                            <option value="butter">Real Butter 🧈</option>
+                                            <option value="low">Low Oil / Fit Prep 💧</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Instructions Text -->
+                                    <div class="form-group">
+                                        <label>Special Instructions</label>
+                                        <input type="text" id="ex-instructions" class="custom-input" placeholder="e.g. Bake crust extra crispy...">
+                                    </div>
+                                </div>
+
+                                <div class="live-recipe-preview">
+                                    <h5>Chef Preparation Code:</h5>
+                                    <div id="custom-live-spec">
+                                        Medium Spice • Standard Cheese • Olive Oil
+                                    </div>
+                                </div>
+
+                                <!-- Feature 1: Macro Calculator & Carbon Footprint -->
+                                <div class="macro-calculator-preview" style="margin-top: 1rem;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                                        <h5 style="color: var(--secondary); margin-bottom: 0; font-size: 0.85rem;">Live AI Macro Estimator:</h5>
+                                        <span id="eco-badge" style="font-size: 0.75rem; background: rgba(60, 255, 120, 0.15); color: #4dff88; padding: 3px 8px; border-radius: 12px; border: 1px solid rgba(60,255,120,0.3); transition: all 0.3s ease;">🍃 1.2kg CO₂e</span>
+                                    </div>
+                                    <div class="macro-grid" style="display: flex; gap: 10px; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px;">
+                                        <div class="macro-item" style="text-align: center; flex: 1;"><span id="mac-cal" style="display: block; font-weight: bold; color: #fff;">540</span><small style="color: #aaa; font-size: 0.7rem;">kcal</small></div>
+                                        <div class="macro-item" style="text-align: center; flex: 1;"><span id="mac-pro" style="display: block; font-weight: bold; color: #fff;">24</span><small style="color: #aaa; font-size: 0.7rem;">g Pro</small></div>
+                                        <div class="macro-item" style="text-align: center; flex: 1;"><span id="mac-crb" style="display: block; font-weight: bold; color: #fff;">62</span><small style="color: #aaa; font-size: 0.7rem;">g Carb</small></div>
+                                        <div class="macro-item" style="text-align: center; flex: 1;"><span id="mac-fat" style="display: block; font-weight: bold; color: #fff;">18</span><small style="color: #aaa; font-size: 0.7rem;">g Fat</small></div>
+                                    </div>
+                                </div>
+
+                                <div class="customizer-actions">
+                                    <button class="btn btn-primary btn-block" id="btn-save-custom-item">Confirm & Add to Order</button>
+                                    <button class="btn btn-outline btn-block" id="btn-share-recipe" style="margin-top: 10px; border-color: var(--border-glass); color: var(--text-white);">Share My Custom Recipe 📲</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <span class="logo-icon">🍳</span>
+                    <span class="logo-text">LiveKitchen</span>
+                </a>
+                <p>Redefining culinary trust through real-time camera tracking and premium-quality organic components. Taste the transparency.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">🌐</a>
+                    <a href="#" aria-label="Instagram">📸</a>
+                    <a href="#" aria-label="Twitter">🐦</a>
+                    <a href="#" aria-label="YouTube">🎥</a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Our Menu</a></li>
+                    <li><a href="takeaway.html">Table & Takeaway</a></li>
+                    <li><a href="live.html">Live Kitchen</a></li>
+                    <li><a href="about.html">Our Chefs</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Legal & Info</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Hygiene Certificate</a></li>
+                    <li><a href="#">HACCP Compliance</a></li>
+                    <li><a href="contact.html">Contact Support</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-newsletter">
+                <h4>Stay Updated</h4>
+                <p>Subscribe to receive news about new chefs, recipes, and organic farms.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required class="newsletter-input">
+                    <button type="submit" class="btn btn-primary btn-sm">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container bottom-bar">
+                <p>&copy; 2026 LiveKitchen Inc. All rights reserved.</p>
+                <p>Designed with absolute transparency.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar Modal -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>🛒 Your Order</h3>
+            <button class="close-cart-btn" id="close-cart-btn">&times;</button>
+        </div>
+        <div class="cart-items-container" id="cart-items-container">
+            <!-- Items inject here -->
+            <div class="empty-cart-msg">Your cart is currently empty.</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span>Total:</span>
+                <span id="cart-total-amount">$0.00</span>
+            </div>
+            <button class="btn btn-primary btn-block" id="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+    <div class="cart-overlay" id="cart-overlay"></div>
+
+    <!-- Feature 3: Recipe Share Modal -->
+    <div class="provenance-modal" id="qr-modal">
+        <div class="provenance-content" style="text-align: center;">
+            <span class="prov-close" id="qr-close">&times;</span>
+            <h3 style="color: var(--primary); margin-bottom: 5px;">Share Your Recipe</h3>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">Let friends scan this to auto-load your custom dish!</p>
+            
+            <div class="mock-qr" style="width: 150px; height: 150px; background: white; margin: 0 auto; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+                <!-- CSS Mock QR Grid -->
+                <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; width: 120px; height: 120px;">
+                    <div style="background: black; grid-column: span 2; grid-row: span 2;"></div>
+                    <div style="background: white;"></div>
+                    <div style="background: black; grid-column: span 2; grid-row: span 2;"></div>
+                    <div style="background: black;"></div>
+                    <div style="background: black;"></div>
+                    <div style="background: white;"></div>
+                    <div style="background: black; grid-column: span 2; grid-row: span 2;"></div>
+                    <div style="background: white;"></div>
+                    <div style="background: black;"></div>
+                    <div style="background: black; grid-column: span 2;"></div>
+                    <div style="background: white;"></div>
+                </div>
+            </div>
+            
+            <p class="qr-spec-text" id="qr-spec-text" style="margin-top: 20px; font-size: 0.85rem; color: #fff; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 5px;"></p>
+        </div>
+    </div>
+
+    <!-- JS Logic -->
+    <script src="menu.js"></script>
+</body>
+</html>

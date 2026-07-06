@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Table & Takeaway | Live Kitchen</title>
+    <meta name="description" content="Reserve a glass-side dining table or schedule home takeaway options with live kitchen streaming.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🍳</span>
+                <span class="logo-text">LiveKitchen</span>
+            </a>
+            <nav class="nav-bar" id="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="menu.html" class="nav-link">Menu</a>
+                <a href="takeaway.html" class="nav-link active">Table & Takeaway</a>
+                <a href="live.html" class="nav-link">Live Kitchen</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="feedback.html" class="nav-link">Feedback</a>
+                <a href="billing.html" class="nav-link" id="nav-billing-link">Billing (0)</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <div class="nav-indicator"></div>
+            </nav>
+            <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Menu">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="page-padding">
+        <section class="booking-page-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">RESERVATIONS & PICKUPS</span>
+                    <h2 class="section-title">Schedule Your Dining Experience</h2>
+                    <p class="section-desc">Reserve a glass-view table directly in front of Chef Station-1, or schedule a takeaway pickup synced with live prep clocks.</p>
+                </div>
+
+                <!-- Booking Options Grid Tabs -->
+                <div class="booking-type-toggle">
+                    <button class="booking-type-btn active" id="btn-toggle-dine">Dine-in Reservations 🪑</button>
+                    <button class="booking-type-btn" id="btn-toggle-take">Takeaway Pickup 🚗</button>
+                </div>
+
+                <!-- Tab 1: Dine-in Table Reservations -->
+                <div id="booking-dine-section" class="booking-form-wrapper active">
+                    <div class="dine-in-grid">
+                        
+                        <!-- Dine-in Form & Table Layout Map -->
+                        <div class="dine-layout-map-card">
+                            <h4>🍳 Transparent Seating Layout</h4>
+                            <p class="dine-sub-text">Click a highlighted table to select. Orange tables are in direct view of Chef Sanjay's glass cooking station.</p>
+                            
+                            <div class="restaurant-seating-grid">
+                                <!-- Glass Kitchen Border -->
+                                <div class="kitchen-glass-border">🍳 LIVE GLASS COOKING STATIONS</div>
+                                
+                                <!-- Seating Matrix -->
+                                <div class="seating-matrix-container">
+                                    <!-- Row 1: Premium View Tables -->
+                                    <div class="seating-row">
+                                        <div class="table-node premium" data-table="T1" data-seats="2">
+                                            <span class="tbl-lbl">T1</span>
+                                            <span class="tbl-seats">2 Seats</span>
+                                        </div>
+                                        <div class="table-node premium" data-table="T2" data-seats="4">
+                                            <span class="tbl-lbl">T2</span>
+                                            <span class="tbl-seats">4 Seats</span>
+                                        </div>
+                                        <div class="table-node premium occupied" data-table="T3" data-seats="2">
+                                            <span class="tbl-lbl">T3</span>
+                                            <span class="tbl-seats">Occupied</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Row 2: Center Lounge Tables -->
+                                    <div class="seating-row">
+                                        <div class="table-node" data-table="T4" data-seats="4">
+                                            <span class="tbl-lbl">T4</span>
+                                            <span class="tbl-seats">4 Seats</span>
+                                        </div>
+                                        <div class="table-node occupied" data-table="T5" data-seats="6">
+                                            <span class="tbl-lbl">T5</span>
+                                            <span class="tbl-seats">Occupied</span>
+                                        </div>
+                                        <div class="table-node" data-table="T6" data-seats="4">
+                                            <span class="tbl-lbl">T6</span>
+                                            <span class="tbl-seats">4 Seats</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Row 3: Cozy Window Nooks -->
+                                    <div class="seating-row">
+                                        <div class="table-node window" data-table="T7" data-seats="2">
+                                            <span class="tbl-lbl">T7</span>
+                                            <span class="tbl-seats">Window 2</span>
+                                        </div>
+                                        <div class="table-node window" data-table="T8" data-seats="2">
+                                            <span class="tbl-lbl">T8</span>
+                                            <span class="tbl-seats">Window 2</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Legend -->
+                            <div class="map-legend">
+                                <div class="lg-item"><span class="lg-box green"></span> Available</div>
+                                <div class="lg-item"><span class="lg-box orange"></span> Selected</div>
+                                <div class="lg-item"><span class="lg-box orange-border"></span> Chef View Premium</div>
+                                <div class="lg-item"><span class="lg-box grey"></span> Occupied</div>
+                            </div>
+                        </div>
+
+                        <!-- Reservation Booking Inputs Details -->
+                        <div class="dine-details-card">
+                            <h4>📅 Reservation Schedule</h4>
+                            
+                            <form class="dine-in-inputs-form" id="dine-booking-form">
+                                <div class="form-group">
+                                    <label>Party Size</label>
+                                    <select id="dine-party-size" class="custom-select" required>
+                                        <option value="1">1 Person</option>
+                                        <option value="2" selected>2 People</option>
+                                        <option value="3">3 People</option>
+                                        <option value="4">4 People</option>
+                                        <option value="6">6 People</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Reservation Date</label>
+                                    <input type="date" id="dine-date" class="custom-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Preferred Time Slot</label>
+                                    <select id="dine-time-slot" class="custom-select" required>
+                                        <option value="12:00">12:00 PM (Lunch)</option>
+                                        <option value="13:30">1:30 PM (Lunch)</option>
+                                        <option value="18:00">6:00 PM (Dinner)</option>
+                                        <option value="19:30" selected>7:30 PM (Dinner)</option>
+                                        <option value="21:00">9:00 PM (Dinner)</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Special Arrangements</label>
+                                    <input type="text" id="dine-requests" class="custom-input" placeholder="e.g. Birthday candles, highchair...">
+                                </div>
+
+                                <div class="booking-receipt-summary" id="booking-receipt-summary">
+                                    <h5>Selection Summary:</h5>
+                                    <div class="receipt-summary-text" id="dine-summary-text">
+                                        Please select a table from the seating layout.
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-block">Confirm Table Booking</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Takeaway Pickup Scheduling -->
+                <div id="booking-takeaway-section" class="booking-form-wrapper">
+                    <div class="takeaway-layout-grid">
+                        <!-- Inputs Form -->
+                        <div class="takeaway-form-card">
+                            <h4>🚗 Valet Curbside Takeaway</h4>
+                            <p class="takeaway-sub-text">Provide your vehicle model. When you drive up to our valet pickup zone, our team dispatches your hot meal straight to your car window.</p>
+                            
+                            <form class="takeaway-inputs-form" id="takeaway-booking-form">
+                                <div class="form-group">
+                                    <label>Pickup Time</label>
+                                    <input type="time" id="take-time" class="custom-input" required value="19:45">
+                                </div>
+                                <div class="form-group">
+                                    <label>Date</label>
+                                    <input type="date" id="take-date" class="custom-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Vehicle Model & Color</label>
+                                    <input type="text" id="take-vehicle" class="custom-input" placeholder="e.g. White Tesla Model 3" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Mobile Number</label>
+                                    <input type="tel" id="take-phone" class="custom-input" placeholder="e.g. (555) 019-2831" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Preparation Speed</label>
+                                    <select id="take-speed" class="custom-select">
+                                        <option value="standard" selected>Standard (Arrive in 25-30 min)</option>
+                                        <option value="express">Express Sauté (Urgent, 15-20 min)</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Schedule Pickup Valet</button>
+                            </form>
+                        </div>
+
+                        <!-- Takeaway Feature Info -->
+                        <div class="takeaway-info-card">
+                            <div class="take-feature-item">
+                                <span class="tf-icon">📦</span>
+                                <div>
+                                    <h5>Double Heat-Seal Sealing</h5>
+                                    <p>Our packaging utilizes steam-vented aluminum inserts. It is sealed live on camera at the packing station before dispatch.</p>
+                                </div>
+                            </div>
+                            <div class="take-feature-item">
+                                <span class="tf-icon">📍</span>
+                                <div>
+                                    <h5>Curbside Valet Parking Spot</h5>
+                                    <p>No need to park. Drive into our dedicated valet lanes at Sector-5 district, and we match your order number via license plates.</p>
+                                </div>
+                            </div>
+                            <div class="take-feature-item">
+                                <span class="tf-icon">📲</span>
+                                <div>
+                                    <h5>Live Packing Alerts</h5>
+                                    <p>Get a direct text stream overlaying the packaging station scale reading, certifying ingredient weights live.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <span class="logo-icon">🍳</span>
+                    <span class="logo-text">LiveKitchen</span>
+                </a>
+                <p>Redefining culinary trust through real-time camera tracking and premium-quality organic components. Taste the transparency.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">🌐</a>
+                    <a href="#" aria-label="Instagram">📸</a>
+                    <a href="#" aria-label="Twitter">🐦</a>
+                    <a href="#" aria-label="YouTube">🎥</a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Our Menu</a></li>
+                    <li><a href="takeaway.html">Table & Takeaway</a></li>
+                    <li><a href="live.html">Live Kitchen</a></li>
+                    <li><a href="about.html">Our Chefs</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Legal & Info</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Hygiene Certificate</a></li>
+                    <li><a href="#">HACCP Compliance</a></li>
+                    <li><a href="contact.html">Contact Support</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-newsletter">
+                <h4>Stay Updated</h4>
+                <p>Subscribe to receive news about new chefs, recipes, and organic farms.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required class="newsletter-input">
+                    <button type="submit" class="btn btn-primary btn-sm">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container bottom-bar">
+                <p>&copy; 2026 LiveKitchen Inc. All rights reserved.</p>
+                <p>Designed with absolute transparency.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Logic -->
+    <script src="takeaway.js"></script>
+</body>
+</html>

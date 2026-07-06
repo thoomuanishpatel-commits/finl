@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Kitchen | Experience Food Like Never Before</title>
+    <meta name="description" content="Watch your meal being prepared live by your assigned chef. 100% transparency, organic ingredients, and customized culinary experiences.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="#" class="logo" id="header-logo">
+                <span class="logo-icon">🍳</span>
+                <span class="logo-text">LiveKitchen</span>
+            </a>
+            <nav class="nav-bar" id="main-nav">
+                <a href="#hero" class="nav-link active">Home</a>
+                <a href="#trust" class="nav-link">Why Us</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#live-preview" class="nav-link">Live Preview</a>
+                <a href="#promise" class="nav-link">Promise</a>
+                <a href="#reviews" class="nav-link">Reviews</a>
+                <a href="#find-us" class="nav-link">Find Us</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+                <a href="menu.html" class="nav-link portal-link">🍽️ Open App</a>
+                <div class="nav-indicator"></div>
+            </nav>
+            <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Menu">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- Section 1: Hero Section -->
+        <section id="hero" class="hero-scroll-container">
+            <!-- Sticky Canvas Container -->
+            <div class="hero-canvas-sticky">
+                <canvas id="animation-canvas"></canvas>
+                <div class="hero-canvas-overlay"></div>
+                
+                <!-- Preloader Info -->
+                <div class="canvas-loader" id="canvas-preloader">
+                    <div class="spinner"></div>
+                    <span id="preloader-text">Loading Animation (0%)...</span>
+                </div>
+
+                <!-- Overlay Block 1: Hero Intro -->
+                <div class="hero-overlay-content block-intro" id="hero-intro-content">
+                    <div class="badge-new">
+                        <span class="pulse-dot"></span> From Order to Plate — Watch Live
+                    </div>
+                    <h1 class="hero-title">Experience Food <br><span class="gradient-text">Like Never Before</span></h1>
+                    <p class="hero-subtitle">Every meal deserves trust. Watch your order prepared live by your assigned chef—from the first ingredient to the final garnish.</p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary" id="hero-order-now-btn">🍽 Order Now</button>
+                        <button class="btn btn-secondary" id="hero-watch-demo-btn">▶ Watch Demo</button>
+                    </div>
+                </div>
+
+                <!-- Overlay Block 2: How Transparent We Are -->
+                <div class="hero-overlay-content block-story" id="hero-story-content">
+                    <div class="badge-new bg-green">
+                        <span class="pulse-dot green"></span> Portions & Integrity
+                    </div>
+                    <h1 class="hero-title">How <span class="gradient-text green">Transparent</span> We Are</h1>
+                    <p class="hero-subtitle">Every ingredient accounted for. Watch as fresh organic ingredients are cut, weighed, and cooked in real-time under our smart kitchen monitoring system.</p>
+                    <p class="hero-desc-extra">No pre-cooked sauces. No hidden storage bins. Just pure, clean cooking broadcast directly to your device. You can verify portion weight and sanitization timestamps at any second of the prep cycle.</p>
+                </div>
+
+                <!-- Overlay Block 3: From Fire To Plate -->
+                <div class="hero-overlay-content block-ending" id="hero-ending-content">
+                    <div class="badge-new bg-amber">
+                        <span class="pulse-dot amber"></span> Final Garnish & Prep
+                    </div>
+                    <h1 class="hero-title">From Fire <br><span class="gradient-text amber">To Plate</span></h1>
+                    <p class="hero-subtitle">Every detail perfected on screen. Watch your chef add final organic herbs, fresh cream, and seasonings at Station-1.</p>
+                    <p class="hero-desc-extra">No hidden warming drawers or pre-packed plates. Every single element is cooked fresh from scratch and plated live. You witness the final heat and garnish before the steam-vented double seal is placed.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Why Customers Trust Us -->
+        <section id="trust" class="trust-section">
+            <div class="video-bg-container">
+                <!-- Fallback blurred ambient layout + slow-motion kitchen video stream simulated via styling -->
+                <div class="video-overlay"></div>
+                <div class="ambient-glow"></div>
+            </div>
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">OUR FOUNDATION</span>
+                    <h2 class="section-title">Why Customers Trust Us</h2>
+                    <p class="section-desc">We broke the kitchen walls down. Transparency isn't a feature; it's our promise.</p>
+                </div>
+                
+                <div class="trust-grid">
+                    <div class="trust-card fade-in">
+                        <div class="card-icon">🥗</div>
+                        <h3>Fresh Ingredients</h3>
+                        <p>Only farm-fresh vegetables and premium-quality ingredients sourced directly from certified organic local growers.</p>
+                    </div>
+                    <div class="trust-card fade-in">
+                        <div class="card-icon">👨‍🍳</div>
+                        <h3>Live Kitchen Transparency</h3>
+                        <p>Watch your order prepared in real time. Absolute view of our cooking process, start to finish.</p>
+                    </div>
+                    <div class="trust-card fade-in">
+                        <div class="card-icon">🧼</div>
+                        <h3>Certified Hygiene</h3>
+                        <p>Every workstation follows strict sanitation protocols. Cleanliness is audited round the clock by AI and humans.</p>
+                    </div>
+                    <div class="trust-card fade-in">
+                        <div class="card-icon">❤️</div>
+                        <h3>Made Fresh</h3>
+                        <p>No pre-cooked components. Every dish starts cooking only after your order is officially placed and confirmed.</p>
+                    </div>
+                    <div class="trust-card fade-in">
+                        <div class="card-icon">⭐</div>
+                        <h3>Premium Taste</h3>
+                        <p>Recipes crafted by world-class culinary masters, balancing nutrition, flavor, and sensory delight.</p>
+                    </div>
+                    <div class="trust-card fade-in">
+                        <div class="card-icon">⏱</div>
+                        <h3>Fast Service</h3>
+                        <p>Freshly cooked hot meals delivered without compromising quality, thanks to optimized pipeline assembly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: What Makes Us Different? (USP & Interactive Panels) -->
+        <section id="features" class="usp-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">THE REVOLUTION</span>
+                    <h2 class="section-title">What Makes Us Different?</h2>
+                    <p class="section-desc">A restaurant built like a tech stack. Experience features available nowhere else.</p>
+                </div>
+
+                <div class="usp-layout">
+                    <!-- Left Column: Cards Grid -->
+                    <div class="usp-grid">
+                        <div class="usp-card active" data-target="panel-live-cooking">
+                            <div class="usp-card-header">
+                                <span class="usp-emoji">🎥</span>
+                                <h3>Live Cooking</h3>
+                            </div>
+                            <p>Track your assigned chef in real time with our ultra-low latency streams.</p>
+                        </div>
+                        <div class="usp-card" data-target="panel-dedicated-chef">
+                            <div class="usp-card-header">
+                                <span class="usp-emoji">👨‍🍳</span>
+                                <h3>Dedicated Chef</h3>
+                            </div>
+                            <p>Each individual order is assigned to a single chef who handles your meal end-to-end.</p>
+                        </div>
+                        <div class="usp-card" data-target="panel-customize">
+                            <div class="usp-card-header">
+                                <span class="usp-emoji">🌶</span>
+                                <h3>Customize Everything</h3>
+                            </div>
+                            <p>Adjust spice levels, cheese amount, allergens, and leave special requests live.</p>
+                        </div>
+                        <div class="usp-card" data-target="panel-tracking">
+                            <div class="usp-card-header">
+                                <span class="usp-emoji">📱</span>
+                                <h3>Smart Order Tracking</h3>
+                            </div>
+                            <p>Watch dynamic stages: Placed, Cooking, Plating, Ready, and Delivered.</p>
+                        </div>
+                        <div class="usp-card" data-target="panel-safe">
+                            <div class="usp-card-header">
+                                <span class="usp-emoji">🔒</span>
+                                <h3>Safe & Transparent</h3>
+                            </div>
+                            <p>Nothing hidden. Raw ingredients weighed on camera, workstations audited.</p>
+                        </div>
+                        <div class="usp-card" data-target="panel-memories">
+                            <div class="usp-card-header">
+                                <span class="usp-emoji">📸</span>
+                                <h3>Cooking Memories</h3>
+                            </div>
+                            <p>Save your cooking video as a high-definition memory highlight after your meal.</p>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Interactive Visualizers -->
+                    <div class="usp-viewer">
+                        <div class="viewer-glass-panel">
+                            
+                            <!-- Panel 1: Live Cooking Preview -->
+                            <div id="panel-live-cooking" class="viewer-panel active">
+                                <div class="panel-header">
+                                    <span class="live-dot-pulse"></span>
+                                    <h4>Chef Sanjay's Stream</h4>
+                                    <span class="stream-fps">60 FPS</span>
+                                </div>
+                                <div class="mock-stream-display">
+                                    <video id="mock-cooking-stream" src="assets/videos/pasta.mp4" autoplay loop muted playsinline></video>
+                                    <div class="stream-overlay-metrics">
+                                        <div class="metric-item">Temp: <span class="amber-text">185°C</span></div>
+                                        <div class="metric-item">Prep: <span class="green-text">Truffle Pasta</span></div>
+                                        <div class="metric-item">Time: <span id="stream-countdown">04:12</span></div>
+                                    </div>
+                                </div>
+                                <div class="viewer-footer">
+                                    <p>Streaming direct from Prep Station 4. Watch in full HD during your order checkout.</p>
+                                </div>
+                            </div>
+
+                            <!-- Panel 2: Dedicated Chef Info -->
+                            <div id="panel-dedicated-chef" class="viewer-panel">
+                                <div class="chef-profile-widget">
+                                    <div class="chef-avatar">🧑‍🍳</div>
+                                    <h4>Chef Maria Rodriguez</h4>
+                                    <span class="chef-specialty">Pastry & Italian Classics</span>
+                                    <div class="chef-stars">⭐⭐⭐⭐⭐ <span class="rating-val">(4.9/5)</span></div>
+                                    <p class="chef-bio">"I believe culinary transparency creates an emotional bridge between the chef and the guest. I cook every meal with the precision of an artisan."</p>
+                                    <div class="chef-badges">
+                                        <span class="chef-badge">Italian Expert</span>
+                                        <span class="chef-badge">Hygiene Champion</span>
+                                        <span class="chef-badge">Fast Prep</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Panel 3: Customize Everything (Interactive Widget) -->
+                            <div id="panel-customize" class="viewer-panel">
+                                <h4>🌶 Recipe Customizer</h4>
+                                <div class="customize-widget-form">
+                                    <div class="form-group">
+                                        <label>Spice Level</label>
+                                        <div class="spice-selector">
+                                            <button type="button" class="spice-btn" data-spice="mild">Mild 🌿</button>
+                                            <button type="button" class="spice-btn active" data-spice="medium">Medium 🌶</button>
+                                            <button type="button" class="spice-btn" data-spice="spicy">Extra Hot 🌶🔥</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Preferences</label>
+                                        <div class="pref-checkboxes">
+                                            <label class="checkbox-container">
+                                                <input type="checkbox" id="pref-cheese" checked>
+                                                <span class="checkmark"></span> Extra Cheese 🧀
+                                            </label>
+                                            <label class="checkbox-container">
+                                                <input type="checkbox" id="pref-onion">
+                                                <span class="checkmark"></span> No Onion 🚫🧅
+                                            </label>
+                                            <label class="checkbox-container">
+                                                <input type="checkbox" id="pref-garlic">
+                                                <span class="checkmark"></span> No Garlic 🚫🧄
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Oil Preference</label>
+                                        <select id="pref-oil" class="custom-select">
+                                            <option value="olive">Extra Virgin Olive Oil 🫒</option>
+                                            <option value="butter">Real Butter 🧈</option>
+                                            <option value="low">Low Oil / Light Fit 💧</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Special Instructions</label>
+                                        <input type="text" id="pref-special" class="custom-input" placeholder="e.g. Please crisp up the mushrooms...">
+                                    </div>
+                                </div>
+                                <div class="live-recipe-preview">
+                                    <h5>Live Recipe Spec:</h5>
+                                    <div id="recipe-spec-card">
+                                        Medium Spice • Extra Cheese • Standard Veggies • Olive Oil
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Panel 4: Smart Order Tracking (Interactive Widget) -->
+                            <div id="panel-tracking" class="viewer-panel">
+                                <div class="panel-header">
+                                    <h4>Simulated Live Tracker</h4>
+                                    <button class="btn btn-sm btn-outline" id="trigger-tracker-sim">Simulate Order</button>
+                                </div>
+                                <div class="tracker-steps-container">
+                                    <div class="tracker-step" id="step-placed">
+                                        <div class="step-bullet">1</div>
+                                        <div class="step-info">
+                                            <h5>Order Placed</h5>
+                                            <p>Received by kitchen desk</p>
+                                        </div>
+                                    </div>
+                                    <div class="tracker-step" id="step-cooking">
+                                        <div class="step-bullet">2</div>
+                                        <div class="step-info">
+                                            <h5>Cooking</h5>
+                                            <p>Chef preparing ingredients</p>
+                                        </div>
+                                    </div>
+                                    <div class="tracker-step" id="step-plating">
+                                        <div class="step-bullet">3</div>
+                                        <div class="step-info">
+                                            <h5>Plating</h5>
+                                            <p>Assembling & finishing touches</p>
+                                        </div>
+                                    </div>
+                                    <div class="tracker-step" id="step-ready">
+                                        <div class="step-bullet">4</div>
+                                        <div class="step-info">
+                                            <h5>Ready</h5>
+                                            <p>Quality check complete</p>
+                                        </div>
+                                    </div>
+                                    <div class="tracker-step" id="step-delivered">
+                                        <div class="step-bullet">5</div>
+                                        <div class="step-info">
+                                            <h5>Delivered</h5>
+                                            <p>Arrived fresh at your table / doorstep</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="progress-bar-wrapper">
+                                    <div class="progress-bar-fill" id="tracker-bar"></div>
+                                </div>
+                            </div>
+
+                            <!-- Panel 5: Safe & Transparent -->
+                            <div id="panel-safe" class="viewer-panel">
+                                <h4>🔒 Kitchen Integrity Protocol</h4>
+                                <ul class="integrity-list">
+                                    <li><strong>Visual Scales:</strong> Ingredients are placed on digital scales readable directly in the video stream.</li>
+                                    <li><strong>Certified Auditing:</strong> Smart cameras automatically detect gloves, hairnets, and sanitization frequencies.</li>
+                                    <li><strong>Zero Prep Walls:</strong> No kitchen back-rooms. The entire workspace has 360° transparent glass windows.</li>
+                                </ul>
+                                <div class="integrity-badge-display">
+                                    <div class="int-badge">🛡️ HACCP</div>
+                                    <div class="int-badge">🧼 100% Clean</div>
+                                    <div class="int-badge">🥗 Non-GMO</div>
+                                </div>
+                            </div>
+
+                            <!-- Panel 6: Cooking Memories -->
+                            <div id="panel-memories" class="viewer-panel">
+                                <div class="memories-showcase">
+                                    <div class="memory-card">
+                                        <div class="memory-thumb">
+                                            <div class="play-overlay">🎬</div>
+                                            <span class="duration">0:45</span>
+                                        </div>
+                                        <div class="memory-details">
+                                            <h5>Chef Sanjay's Fire-Sauté Highlight</h5>
+                                            <p>Order #4819 - Truffle Penne Pasta</p>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary btn-block" id="btn-save-memory">
+                                        <span>📸 Compile & Save Memory</span>
+                                    </button>
+                                    <div class="memory-toast" id="memory-save-toast">
+                                        Your cooking memory reel is ready! File: <code>kitchen-memory-4819.mp4</code> (Simulated)
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: How It Works -->
+        <section id="how-it-works" class="how-it-works-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">THE USER JOURNEY</span>
+                    <h2 class="section-title">How It Works</h2>
+                    <p class="section-desc">From your phone screen directly to your plate. Follow the seamless flow.</p>
+                </div>
+
+                <div class="timeline-container">
+                    <div class="timeline-line"></div>
+                    <div class="timeline-progress"></div>
+                    
+                    <div class="timeline-item" data-index="1">
+                        <div class="timeline-badge">1</div>
+                        <div class="timeline-panel">
+                            <h3>Order Food</h3>
+                            <p>Pick your favorite dish from our digital menu, customize your ingredients, and tap order.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-index="2">
+                        <div class="timeline-badge">2</div>
+                        <div class="timeline-panel">
+                            <h3>Chef Assigned</h3>
+                            <p>A dedicated station chef accepts your order and initializes ingredients instantly.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-index="3">
+                        <div class="timeline-badge">3</div>
+                        <div class="timeline-panel">
+                            <h3>Camera Starts Automatically</h3>
+                            <p>The high-definition workspace camera lights up directly in your order interface.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-index="4">
+                        <div class="timeline-badge">4</div>
+                        <div class="timeline-panel">
+                            <h3>Watch Cooking Live</h3>
+                            <p>Check the stream to watch ingredients get chopped, sautéed, and seasoned exactly to order.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-index="5">
+                        <div class="timeline-badge">5</div>
+                        <div class="timeline-panel">
+                            <h3>Food Prepared</h3>
+                            <p>Your chef adds final garnishes, packs it in eco-friendly steam-vented cases, and seals it.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-index="6">
+                        <div class="timeline-badge">6</div>
+                        <div class="timeline-panel">
+                            <h3>Delivered Fresh</h3>
+                            <p>Dispatched with double seals to your table or doorstep in record time. Eat with total peace of mind.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Live Kitchen Preview -->
+        <section id="live-preview" class="live-kitchen-preview">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">LIVE NOW</span>
+                    <h2 class="section-title">Live Kitchen Preview</h2>
+                    <p class="section-desc">Get a peek inside the stations. Active streams showing our chefs at work right now.</p>
+                </div>
+
+                <div class="chefs-grid">
+                    <!-- Chef 1 -->
+                    <div class="chef-card">
+                        <div class="chef-stream-window">
+                            <video src="assets/videos/pasta.mp4" autoplay loop muted playsinline class="chef-preview-video"></video>
+                            <span class="live-tag">LIVE</span>
+                            <div class="chef-stream-name">Station 1: Pasta & Main Course</div>
+                            <div class="cheer-container">
+                                <button class="cheer-btn" title="Cheer for Chef!">🔥</button>
+                                <button class="cheer-btn" title="Cheer for Chef!">👏</button>
+                                <button class="cheer-btn" title="Cheer for Chef!">❤️</button>
+                            </div>
+                        </div>
+                        <div class="chef-info-bar">
+                            <h4>Chef Sanjay Kumar</h4>
+                            <p>Currently: Preparing Wood-Fired Arrabiata</p>
+                        </div>
+                    </div>
+
+                    <!-- Chef 2 -->
+                    <div class="chef-card">
+                        <div class="chef-stream-window">
+                            <video src="assets/videos/pizza.mp4" autoplay loop muted playsinline class="chef-preview-video"></video>
+                            <span class="live-tag">LIVE</span>
+                            <div class="chef-stream-name">Station 2: Artisanal Pizzas</div>
+                            <div class="cheer-container">
+                                <button class="cheer-btn" title="Cheer for Chef!">🔥</button>
+                                <button class="cheer-btn" title="Cheer for Chef!">👏</button>
+                                <button class="cheer-btn" title="Cheer for Chef!">❤️</button>
+                            </div>
+                        </div>
+                        <div class="chef-info-bar">
+                            <h4>Chef Maria Rodriguez</h4>
+                            <p>Currently: Baking Truffle Mushroom Pizza</p>
+                        </div>
+                    </div>
+
+                    <!-- Chef 3 -->
+                    <div class="chef-card">
+                        <div class="chef-stream-window">
+                            <video src="assets/videos/tiramisu.mp4" autoplay loop muted playsinline class="chef-preview-video"></video>
+                            <span class="live-tag">LIVE</span>
+                            <div class="chef-stream-name">Station 3: Desserts & Sides</div>
+                            <div class="cheer-container">
+                                <button class="cheer-btn" title="Cheer for Chef!">🔥</button>
+                                <button class="cheer-btn" title="Cheer for Chef!">👏</button>
+                                <button class="cheer-btn" title="Cheer for Chef!">❤️</button>
+                            </div>
+                        </div>
+                        <div class="chef-info-bar">
+                            <h4>Chef Liam O'Connor</h4>
+                            <p>Currently: Whipping Deconstructed Tiramisu</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preview-cta">
+                    <a href="#takeaway" class="btn btn-primary" id="cta-see-works">See how transparent cooking works</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Our Promise -->
+        <section id="promise" class="promise-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">GUARANTEES</span>
+                    <h2 class="section-title">Our Promise</h2>
+                    <p class="section-desc">Standards we never lower. Every plate conforms to these strict values.</p>
+                </div>
+
+                <div class="promise-grid">
+                    <div class="promise-card">
+                        <div class="promise-icon">🧼</div>
+                        <h4>Hygiene First</h4>
+                        <p>UV sanitization of all surfaces between prep orders. Sanitizer counts updated hourly.</p>
+                    </div>
+                    <div class="promise-card">
+                        <div class="promise-icon">🥬</div>
+                        <h4>Fresh Ingredients</h4>
+                        <p>No storage beyond 24 hours. Zero chemicals, zero preservatives, 100% natural seasoning.</p>
+                    </div>
+                    <div class="promise-card">
+                        <div class="promise-icon">🔥</div>
+                        <h4>Authentic Cooking</h4>
+                        <p>Traditional wood, clay oven, and skillet methods. No microwaves, no artificial enhancers.</p>
+                    </div>
+                    <div class="promise-card">
+                        <div class="promise-icon">😊</div>
+                        <h4>Customer Satisfaction</h4>
+                        <p>If you see a step that didn't meet your custom instructions, we will replace the dish instantly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Our Partners -->
+        <section id="partners" class="partners-section">
+            <div class="container">
+                <div class="partners-wrapper">
+                    <h4>Proudly Integrated With</h4>
+                    <div class="partners-grid">
+                        <div class="partner-logo">Zomato</div>
+                        <div class="partner-logo">Swiggy</div>
+                        <div class="partner-logo">Magicpin</div>
+                        <div class="partner-logo">Dineout</div>
+                        <div class="partner-logo">ONDC</div>
+                        <div class="partner-logo">Google Reviews</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Find Us -->
+        <section id="find-us" class="find-us-section">
+            <div class="container">
+                <div class="find-us-layout">
+                    <!-- Left: Restaurant Info -->
+                    <div class="find-info">
+                        <span class="section-tag">LOCATIONS</span>
+                        <h2>Visit The Live Kitchen</h2>
+                        <p class="find-desc">Come experience the physical glass kitchen or order takeaways directly from our counter.</p>
+                        
+                        <div class="info-blocks">
+                            <div class="info-block">
+                                <div class="info-icon">📍</div>
+                                <div class="info-text">
+                                    <h5>Restaurant Address</h5>
+                                    <p>84 Culinary Boulevard, Food District, Sector-5, City</p>
+                                </div>
+                            </div>
+                            <div class="info-block">
+                                <div class="info-icon">🕒</div>
+                                <div class="info-text">
+                                    <h5>Opening Hours</h5>
+                                    <p>Mon - Sun: 11:00 AM - 11:30 PM</p>
+                                </div>
+                            </div>
+                            <div class="info-block">
+                                <div class="info-icon">📞</div>
+                                <div class="info-text">
+                                    <h5>Phone & Email</h5>
+                                    <p>+1 (555) 982-1200 | support@livekitchen.com</p>
+                                </div>
+                            </div>
+                            <div class="info-block">
+                                <div class="info-icon">🚗</div>
+                                <div class="info-text">
+                                    <h5>Parking Information</h5>
+                                    <p>Free underground valet parking is available for all diners.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Interactive Styled Map (SVG/CSS Mockup) -->
+                    <div class="find-map">
+                        <div class="map-container">
+                            <div id="mock-map">
+                                <div class="map-glow"></div>
+                                <div class="map-streets"></div>
+                                <div class="map-pin">
+                                    <div class="pin-ring"></div>
+                                    <div class="pin-dot"></div>
+                                    <div class="pin-bubble">Live Kitchen Restaurant</div>
+                                </div>
+                                <div class="map-controls">
+                                    <button class="map-zoom-btn" id="map-zoom-in">+</button>
+                                    <button class="map-zoom-btn" id="map-zoom-out">-</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 9: Customer Reviews -->
+        <section id="reviews" class="reviews-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">TESTIMONIALS</span>
+                    <h2 class="section-title">What Our Diners Say</h2>
+                    <p class="section-desc">Real reviews from verified diners who checked our streams.</p>
+                </div>
+
+                <div class="reviews-slider">
+                    <div class="review-track" id="review-track">
+                        <!-- Review Card 1 -->
+                        <div class="review-card">
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                            <p class="review-text">"Watching my own food being cooked was an amazing experience. I could see the fresh cherry tomatoes and basil being tossed. The taste was out of this world!"</p>
+                            <div class="reviewer-meta">
+                                <h5>Sarah Jenkins</h5>
+                                <span>Verified Diner</span>
+                            </div>
+                        </div>
+
+                        <!-- Review Card 2 -->
+                        <div class="review-card">
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                            <p class="review-text">"The transparency built instant trust. I always worry about hygiene when ordering online. With Live Kitchen, I can audit the chef's station myself. Invaluable!"</p>
+                            <div class="reviewer-meta">
+                                <h5>David Chen</h5>
+                                <span>Tech Entrepreneur</span>
+                            </div>
+                        </div>
+
+                        <!-- Review Card 3 -->
+                        <div class="review-card">
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                            <p class="review-text">"Kids loved watching the chef cook. They wouldn't stop staring at the pizza getting stretched and baked live on the iPad. Made dinner interactive and fun."</p>
+                            <div class="reviewer-meta">
+                                <h5>Emily & Family</h5>
+                                <span>Parents of two</span>
+                            </div>
+                        </div>
+
+                        <!-- Review Card 4 -->
+                        <div class="review-card">
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                            <p class="review-text">"I ordered custom low-oil and no-garlic options. I watched the chef actually use the spray oil and skip garlic altogether. Finally, a kitchen that doesn't lie!"</p>
+                            <div class="reviewer-meta">
+                                <h5>Marcus Aurelius</h5>
+                                <span>Health Enthusiast</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slider-controls">
+                        <button class="slider-btn" id="review-prev" aria-label="Previous Review">←</button>
+                        <button class="slider-btn" id="review-next" aria-label="Next Review">→</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 10: Frequently Asked Questions -->
+        <section id="faq" class="faq-section">
+            <div class="container faq-container-width">
+                <div class="section-header">
+                    <span class="section-tag">SUPPORT</span>
+                    <h2 class="section-title">Frequently Asked Questions</h2>
+                    <p class="section-desc">Clear queries about our transparency protocols and order processing.</p>
+                </div>
+
+                <div class="faq-accordion-list">
+                    <!-- FAQ 1 -->
+                    <div class="faq-item">
+                        <button class="faq-toggle">
+                            <span>How does live cooking work?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-content">
+                            <p>As soon as you place your order, our smart system assigns it to one of our station chefs. The camera directly above their workspace goes live and displays a stream on your tracker page. You can monitor the food assembly, weights, cooking temps, and garnishing in real time.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="faq-item">
+                        <button class="faq-toggle">
+                            <span>Can I customize my food?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-content">
+                            <p>Yes, absolutely. Our menu interface contains multiple custom toggles (Spice levels, oil volume, cheese addition, allergen flags like no onion/no garlic). The chef sees these specifications on their workstation monitor and builds the dish exactly to your choices.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="faq-item">
+                        <button class="faq-toggle">
+                            <span>Can I save my cooking video?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-content">
+                            <p>Yes. Upon completion of your order, our servers compile the stream highlight reels into a 45-second high-definition clip. You can click 'Download Memory' from your receipt page or save it directly to your profile memories to share on social channels.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="faq-item">
+                        <button class="faq-toggle">
+                            <span>Do takeaway orders also include live cooking?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-content">
+                            <p>Yes. Both dine-in tables, takeaway pickups, and home deliveries are recorded and live-streamed. A QR code is generated on your printed receipt and mobile screen to load your private streaming feed immediately.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <span class="logo-icon">🍳</span>
+                    <span class="logo-text">LiveKitchen</span>
+                </a>
+                <p>Redefining culinary trust through real-time camera tracking and premium-quality organic components. Taste the transparency.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">🌐</a>
+                    <a href="#" aria-label="Instagram">📸</a>
+                    <a href="#" aria-label="Twitter">🐦</a>
+                    <a href="#" aria-label="YouTube">🎥</a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#trust">Why Us</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#live-preview">Live Preview</a></li>
+                    <li><a href="#promise">Our Promise</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                    <li><a href="#find-us">Find Us</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Legal & Info</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Hygiene Certificate</a></li>
+                    <li><a href="#">HACCP Compliance</a></li>
+                    <li><a href="#find-us">Contact Support</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-newsletter">
+                <h4>Stay Updated</h4>
+                <p>Subscribe to receive news about new chefs, recipes, and organic farms.</p>
+                <form class="newsletter-form" id="newsletter-form">
+                    <input type="email" placeholder="Your email address" required class="newsletter-input">
+                    <button type="submit" class="btn btn-primary btn-sm">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container bottom-bar">
+                <p>&copy; 2026 LiveKitchen Inc. All rights reserved.</p>
+                <p>Designed with absolute transparency.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>

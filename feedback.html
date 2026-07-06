@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diner Feedback & Audits | Live Kitchen</title>
+    <meta name="description" content="Rate your assigned chef, audit workstation cleanliness scores, and read verified customer reviews.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🍳</span>
+                <span class="logo-text">LiveKitchen</span>
+            </a>
+            <nav class="nav-bar" id="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="menu.html" class="nav-link">Menu</a>
+                <a href="takeaway.html" class="nav-link">Table & Takeaway</a>
+                <a href="live.html" class="nav-link">Live Kitchen</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="feedback.html" class="nav-link active">Feedback</a>
+                <a href="billing.html" class="nav-link" id="nav-billing-link">Billing (0)</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <div class="nav-indicator"></div>
+            </nav>
+            <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Menu">
+                <span class="hamburger"></span>
+            </button>
+        </div>
+    </header>
+
+    <main class="page-padding">
+        <section class="feedback-page-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">DINER AUDITS</span>
+                    <h2 class="section-title">Customer Feedback Center</h2>
+                    <p class="section-desc">Submit your station hygiene audit, rate your assigned chef's preparation accuracy, and read comments from verified diners.</p>
+                </div>
+
+                <div class="feedback-layout-grid">
+                    
+                    <!-- Left: Feedback Submission Form -->
+                    <div class="feedback-form-card">
+                        <h4>📝 Submit Your Diner Audit</h4>
+                        
+                        <form class="feedback-inputs-form" id="diner-feedback-form">
+                            <div class="form-row-double">
+                                <div class="form-group">
+                                    <label>Diner Name</label>
+                                    <input type="text" id="fb-name" class="custom-input" placeholder="e.g. Sarah Jenkins" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Assigned Chef</label>
+                                    <select id="fb-chef" class="custom-select" required>
+                                        <option value="Chef Sanjay">Chef Sanjay Kumar (Pasta)</option>
+                                        <option value="Chef Maria">Chef Maria Rodriguez (Pizza)</option>
+                                        <option value="Chef Liam">Chef Liam O'Connor (Dessert)</option>
+                                        <option value="General">General / Not Sure</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="ratings-inputs-container">
+                                <!-- Taste Rating -->
+                                <div class="rating-input-item">
+                                    <span class="rating-label">Taste Quality</span>
+                                    <div class="rating-stars-interactive" data-rating="taste">
+                                        <span class="star-btn" data-val="1">⭐</span>
+                                        <span class="star-btn" data-val="2">⭐</span>
+                                        <span class="star-btn" data-val="3">⭐</span>
+                                        <span class="star-btn" data-val="4">⭐</span>
+                                        <span class="star-btn active" data-val="5">⭐</span>
+                                    </div>
+                                </div>
+
+                                <!-- Cleanliness/Hygiene Rating -->
+                                <div class="rating-input-item">
+                                    <span class="rating-label">Station Cleanliness (Camera Audit)</span>
+                                    <div class="rating-stars-interactive" data-rating="hygiene">
+                                        <span class="star-btn" data-val="1">⭐</span>
+                                        <span class="star-btn" data-val="2">⭐</span>
+                                        <span class="star-btn" data-val="3">⭐</span>
+                                        <span class="star-btn" data-val="4">⭐</span>
+                                        <span class="star-btn active" data-val="5">⭐</span>
+                                    </div>
+                                </div>
+
+                                <!-- Portions Rating -->
+                                <div class="rating-input-item">
+                                    <span class="rating-label">Portion & Ingredient Accuracy</span>
+                                    <div class="rating-stars-interactive" data-rating="accuracy">
+                                        <span class="star-btn" data-val="1">⭐</span>
+                                        <span class="star-btn" data-val="2">⭐</span>
+                                        <span class="star-btn" data-val="3">⭐</span>
+                                        <span class="star-btn" data-val="4">⭐</span>
+                                        <span class="star-btn active" data-val="5">⭐</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Diner Comments</label>
+                                <textarea id="fb-comments" class="custom-textarea" rows="4" placeholder="e.g. Watching my pizza blister in the wood oven was incredible. Hygiene was flawless!" required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block">Submit Diner Audit</button>
+                        </form>
+                    </div>
+
+                    <!-- Right: Live Customer Review Stream Feed -->
+                    <div class="feedback-feed-card">
+                        <h4>💬 Recent Verified Audits</h4>
+                        <p class="feedback-feed-sub">Scrolling feed of recent checkout memory audits.</p>
+                        
+                        <div class="verified-reviews-stream" id="reviews-stream-ticker">
+                            <!-- Review 1 -->
+                            <div class="verified-review-node">
+                                <div class="rev-header">
+                                    <h5>David Chen</h5>
+                                    <span class="rev-tag">Verified Diner</span>
+                                </div>
+                                <div class="rev-stars">⭐⭐⭐⭐⭐ • Chef Maria</div>
+                                <p>"The transparency built instant trust. Checked the stream while waiting for delivery, chef Station-2 was completely sterile."</p>
+                            </div>
+
+                            <!-- Review 2 -->
+                            <div class="verified-review-node">
+                                <div class="rev-header">
+                                    <h5>Sarah Jenkins</h5>
+                                    <span class="rev-tag">Verified Diner</span>
+                                </div>
+                                <div class="rev-stars">⭐⭐⭐⭐⭐ • Chef Sanjay</div>
+                                <p>"Truffle pasta tasted out of this world. Sautéing Arrabiata live on screen was an amazing sight. Will recommend!"</p>
+                            </div>
+
+                            <!-- Review 3 -->
+                            <div class="verified-review-node">
+                                <div class="rev-header">
+                                    <h5>Emily Richardson</h5>
+                                    <span class="rev-tag">Verified Diner</span>
+                                </div>
+                                <div class="rev-stars">⭐⭐⭐⭐⭐ • Chef Liam</div>
+                                <p>"Deconstructed Tiramisu was absolute art. Kids couldn't stop staring at Chef Liam piping the cream on the stream."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <span class="logo-icon">🍳</span>
+                    <span class="logo-text">LiveKitchen</span>
+                </a>
+                <p>Redefining culinary trust through real-time camera tracking and premium-quality organic components. Taste the transparency.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook">🌐</a>
+                    <a href="#" aria-label="Instagram">📸</a>
+                    <a href="#" aria-label="Twitter">🐦</a>
+                    <a href="#" aria-label="YouTube">🎥</a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Our Menu</a></li>
+                    <li><a href="takeaway.html">Table & Takeaway</a></li>
+                    <li><a href="live.html">Live Kitchen</a></li>
+                    <li><a href="about.html">Our Chefs</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Legal & Info</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Hygiene Certificate</a></li>
+                    <li><a href="#">HACCP Compliance</a></li>
+                    <li><a href="contact.html">Contact Support</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-newsletter">
+                <h4>Stay Updated</h4>
+                <p>Subscribe to receive news about new chefs, recipes, and organic farms.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required class="newsletter-input">
+                    <button type="submit" class="btn btn-primary btn-sm">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container bottom-bar">
+                <p>&copy; 2026 LiveKitchen Inc. All rights reserved.</p>
+                <p>Designed with absolute transparency.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS Logic -->
+    <script src="feedback.js"></script>
+</body>
+</html>
