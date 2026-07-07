@@ -25,12 +25,14 @@
                 <a href="menu.html" class="nav-link">Menu</a>
                 <a href="takeaway.html" class="nav-link active">Table & Takeaway</a>
                 <a href="live.html" class="nav-link">Live Kitchen</a>
+                <a href="reviews.html" class="nav-link">Reviews</a>
                 <a href="about.html" class="nav-link">About</a>
                 <a href="feedback.html" class="nav-link">Feedback</a>
                 <a href="billing.html" class="nav-link" id="nav-billing-link">Billing (0)</a>
                 <a href="contact.html" class="nav-link">Contact</a>
                 <div class="nav-indicator"></div>
             </nav>
+            <div id="user-header-area"></div>
             <button class="menu-toggle" id="mobile-menu-btn" aria-label="Toggle Menu">
                 <span class="hamburger"></span>
             </button>
@@ -294,5 +296,34 @@
 
     <!-- JS Logic -->
     <script src="takeaway.js"></script>
+    <script>
+        function updateHeaderAuth() {
+            fetch('/api/auth/profile')
+                .then(res => {
+                    if (res.ok) return res.json();
+                    throw new Error("Guest");
+                })
+                .then(user => {
+                    const userArea = document.getElementById('user-header-area');
+                    if (userArea) {
+                        userArea.innerHTML = `
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <img src="${user.avatar}" style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--primary);" alt="Avatar">
+                                <a href="profile.html" class="btn btn-sm btn-outline" style="padding: 0.3rem 0.6rem; font-size: 0.8rem; margin: 0;">Profile</a>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(() => {
+                    const userArea = document.getElementById('user-header-area');
+                    if (userArea) {
+                        userArea.innerHTML = `
+                            <a href="auth.html" class="btn btn-sm btn-primary" style="padding: 0.3rem 0.8rem; font-size: 0.8rem; margin: 0;">Login</a>
+                        `;
+                    }
+                });
+        }
+        document.addEventListener('DOMContentLoaded', updateHeaderAuth);
+    </script>
 </body>
 </html>

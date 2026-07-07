@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account | LiveKitchen</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .auth-container {
+            max-width: 480px;
+            margin: 120px auto 60px;
+            padding: 2.5rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .auth-tab-btn {
+            flex: 1;
+            padding: 1rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: 'Sora', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .auth-tab-btn.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .auth-form-section {
+            display: none;
+        }
+
+        .auth-form-section.active {
+            display: block;
+        }
+
+        .password-rules {
+            margin-top: 0.8rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .password-rules ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0.5rem 0 0 0;
+        }
+
+        .password-rules li {
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .password-rules li.valid {
+            color: #4dff88;
+        }
+
+        .password-rules li.invalid {
+            color: #ff4d4d;
+        }
+
+        .form-row-checkbox {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .forgot-link {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-link:hover {
+            color: #ffaa44;
+        }
+
+        .verification-banner {
+            background: rgba(255, 204, 0, 0.15);
+            border: 1px solid rgba(255, 204, 0, 0.3);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin-bottom: 20px;
+            color: #ffcc00;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .verification-banner button {
+            background: #ffcc00;
+            color: black;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .verification-banner button:hover {
+            opacity: 0.9;
+        }
+
+        .toast-notif {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #222;
+            color: #fff;
+            border-left: 5px solid var(--primary);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-sm);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 10000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .toast-notif.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast-notif.success {
+            border-left-color: #4dff88;
+        }
+
+        .toast-notif.error {
+            border-left-color: #ff4d4d;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🍳</span>
+                <span class="logo-text">LiveKitchen</span>
+            </a>
+            <nav class="nav-bar" id="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="menu.html" class="nav-link">Menu</a>
+                <a href="takeaway.html" class="nav-link">Table & Takeaway</a>
+                <a href="live.html" class="nav-link">Live Kitchen</a>
+                <a href="reviews.html" class="nav-link">Reviews</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <div class="nav-indicator"></div>
+            </nav>
+            <div id="user-header-area"></div>
+        </div>
+    </header>
+
+    <div class="container" style="min-height: 80vh; display: flex; flex-direction: column; justify-content: center;">
+
+        <div class="auth-container">
+            <!-- Tabs -->
+            <div class="auth-tabs" id="auth-tabs-container">
+                <button type="button" class="auth-tab-btn active" id="tab-login" onclick="showForm('login')">Login</button>
+                <button type="button" class="auth-tab-btn" id="tab-signup" onclick="showForm('signup')">Sign Up</button>
+            </div>
+
+            <!-- Login Form -->
+            <div class="auth-form-section active" id="form-login">
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <input type="email" id="login-email" class="custom-input" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group" style="position: relative;">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" class="custom-input" placeholder="••••••••" required>
+                        <span id="toggle-login-pwd" style="position: absolute; right: 15px; bottom: 12px; cursor: pointer; color: var(--text-muted); font-size: 0.9rem;">Show</span>
+                    </div>
+                    
+                    <div class="form-row-checkbox">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="login-remember">
+                            <span class="checkmark"></span> Remember Me
+                        </label>
+                        <a href="#" class="forgot-link" onclick="showForm('forgot')">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" id="btn-login-submit">
+                        <span>Sign In</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Sign Up Form -->
+            <div class="auth-form-section" id="form-signup">
+                <form id="signup-form">
+                    <div class="form-group">
+                        <label for="signup-name">Full Name</label>
+                        <input type="text" id="signup-name" class="custom-input" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-email">Email Address</label>
+                        <input type="email" id="signup-email" class="custom-input" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group" style="position: relative;">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" class="custom-input" placeholder="••••••••" required>
+                        <span id="toggle-signup-pwd" style="position: absolute; right: 15px; bottom: 12px; cursor: pointer; color: var(--text-muted); font-size: 0.9rem;">Show</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-confirm-password">Confirm Password</label>
+                        <input type="password" id="signup-confirm-password" class="custom-input" placeholder="••••••••" required>
+                    </div>
+
+                    <!-- Password rules checklist -->
+                    <div class="password-rules">
+                        <strong>Password Requirements:</strong>
+                        <ul>
+                            <li id="rule-length" class="invalid">✗ Minimum 8 characters</li>
+                            <li id="rule-upper" class="invalid">✗ At least one uppercase letter</li>
+                            <li id="rule-lower" class="invalid">✗ At least one lowercase letter</li>
+                            <li id="rule-num" class="invalid">✗ At least one number</li>
+                            <li id="rule-special" class="invalid">✗ At least one special character</li>
+                        </ul>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1.5rem;" id="btn-signup-submit">
+                        <span>Register Account</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Forgot Password Form -->
+            <div class="auth-form-section" id="form-forgot">
+                <h3 style="margin-bottom: 0.5rem; font-family: 'Sora', sans-serif;">Reset Password</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">Enter your email to receive a password reset validation code.</p>
+                <form id="forgot-form">
+                    <div class="form-group">
+                        <label for="forgot-email">Email Address</label>
+                        <input type="email" id="forgot-email" class="custom-input" placeholder="you@example.com" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" id="btn-forgot-submit">
+                        <span>Send Code</span>
+                    </button>
+                    <a href="#" class="forgot-link" style="display: block; text-align: center; margin-top: 1rem; font-size: 0.9rem;" onclick="showForm('login')">Back to Login</a>
+                </form>
+            </div>
+
+
+            <!-- Reset Password Password Input Form -->
+            <div class="auth-form-section" id="form-reset">
+                <h3 style="margin-bottom: 0.5rem; font-family: 'Sora', sans-serif;">Set New Password</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">Enter the verification code and set your new account password.</p>
+                <form id="reset-form">
+                    <div class="form-group">
+                        <label for="reset-code">Reset Code</label>
+                        <input type="text" id="reset-code" class="custom-input" placeholder="e.g. 123456" required maxlength="6" style="text-align: center; font-size: 1.1rem; letter-spacing: 5px;">
+                    </div>
+                    <div class="form-group">
+                        <label for="reset-password">New Password</label>
+                        <input type="password" id="reset-password" class="custom-input" placeholder="••••••••" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reset-confirm-password">Confirm Password</label>
+                        <input type="password" id="reset-confirm-password" class="custom-input" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" id="btn-reset-submit">
+                        <span>Update Password</span>
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-notif" id="toast-el">
+        <span class="toast-icon">✓</span>
+        <span class="toast-message">Success!</span>
+    </div>
+
+    <!-- JS Logic -->
+    <script>
+        // Form views management
+        function showForm(formId) {
+            document.querySelectorAll('.auth-form-section').forEach(f => f.classList.remove('active'));
+            document.querySelectorAll('.auth-tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('auth-tabs-container').style.display = 'flex';
+
+            if (formId === 'login') {
+                document.getElementById('form-login').classList.add('active');
+                document.getElementById('tab-login').classList.add('active');
+            } else if (formId === 'signup') {
+                document.getElementById('form-signup').classList.add('active');
+                document.getElementById('tab-signup').classList.add('active');
+            } else {
+                document.getElementById('auth-tabs-container').style.display = 'none';
+                document.getElementById('form-' + formId).classList.add('active');
+            }
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast-el');
+            toast.className = `toast-notif show ${type}`;
+            toast.querySelector('.toast-icon').textContent = type === 'success' ? '✓' : '⚠️';
+            toast.querySelector('.toast-message').textContent = message;
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        // Setup show/hide password buttons
+        function setupPasswordToggle(inputId, toggleId) {
+            const input = document.getElementById(inputId);
+            const btn = document.getElementById(toggleId);
+            if(input && btn) {
+                btn.addEventListener('click', () => {
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        btn.textContent = 'Hide';
+                    } else {
+                        input.type = 'password';
+                        btn.textContent = 'Show';
+                    }
+                });
+            }
+        }
+
+        setupPasswordToggle('login-password', 'toggle-login-pwd');
+        setupPasswordToggle('signup-password', 'toggle-signup-pwd');
+
+        // Dynamic password criteria validation in SignUp form
+        const signupPwd = document.getElementById('signup-password');
+        if (signupPwd) {
+            signupPwd.addEventListener('input', () => {
+                const val = signupPwd.value;
+                const criteria = {
+                    length: val.length >= 8,
+                    upper: /[A-Z]/.test(val),
+                    lower: /[a-z]/.test(val),
+                    num: /\d/.test(val),
+                    special: /[@$!%*?&#]/.test(val)
+                };
+
+                for (const [key, match] of Object.entries(criteria)) {
+                    const li = document.getElementById(`rule-${key}`);
+                    if (match) {
+                        li.className = 'valid';
+                        li.textContent = `✓ ${li.textContent.slice(2)}`;
+                    } else {
+                        li.className = 'invalid';
+                        li.textContent = `✗ ${li.textContent.slice(2)}`;
+                    }
+                }
+            });
+        }
+
+        // Check verification banner state
+        function renderHeader() {
+            fetch('/api/auth/profile')
+                .then(res => {
+                    if (res.ok) return res.json();
+                    throw new Error("Not logged in");
+                })
+                .then(user => {
+                    document.getElementById('user-header-area').innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <img src="${user.avatar}" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--primary);" alt="Avatar">
+                            <span style="color: white; font-size: 0.9rem; font-weight: 500;">${user.name}</span>
+                            <a href="profile.html" class="btn btn-sm btn-outline">Profile</a>
+                        </div>
+                    `;
+                })
+                .catch(e => {
+                    document.getElementById('user-header-area').innerHTML = `
+                        <a href="auth.html" class="btn btn-sm btn-primary">Login / Sign Up</a>
+                    `;
+                });
+        }
+
+        // Submit Login Form
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-login-submit');
+            btn.disabled = true;
+            btn.querySelector('span').textContent = 'Logging in...';
+
+            const payload = {
+                email: document.getElementById('login-email').value,
+                password: document.getElementById('login-password').value,
+                rememberMe: document.getElementById('login-remember').checked
+            };
+
+            fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json().then(data => ({ status: res.status, data })))
+            .then(({ status, data }) => {
+                btn.disabled = false;
+                btn.querySelector('span').textContent = 'Sign In';
+
+                if (status === 200) {
+                    showToast("✓ Login Successful!", "success");
+                    renderHeader();
+                    setTimeout(() => {
+                        // Check if redirect query param exists
+                        const params = new URLSearchParams(window.location.search);
+                        const dest = params.get('redirect') || 'index.html';
+                        window.location.href = dest;
+                    }, 1000);
+                } else {
+                    showToast(data.error || "Login failed.", "error");
+                }
+            })
+            .catch(err => {
+                btn.disabled = false;
+                btn.querySelector('span').textContent = 'Sign In';
+                showToast("Server error. Please try again.", "error");
+            });
+        });
+
+        // Submit Sign Up Form
+        document.getElementById('signup-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-signup-submit');
+            btn.disabled = true;
+            btn.querySelector('span').textContent = 'Creating account...';
+
+            const payload = {
+                name: document.getElementById('signup-name').value,
+                email: document.getElementById('signup-email').value,
+                password: document.getElementById('signup-password').value,
+                confirmPassword: document.getElementById('signup-confirm-password').value
+            };
+
+            fetch('/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json().then(data => ({ status: res.status, data })))
+            .then(({ status, data }) => {
+                btn.disabled = false;
+                btn.querySelector('span').textContent = 'Register Account';
+
+                if (status === 201) {
+                    showToast("✓ Registration Successful! Logged in automatically.", "success");
+                    renderHeader();
+                    setTimeout(() => {
+                        const params = new URLSearchParams(window.location.search);
+                        const dest = params.get('redirect') || 'index.html';
+                        window.location.href = dest;
+                    }, 1000);
+                } else {
+                    showToast(data.error || "Signup failed.", "error");
+                }
+            })
+            .catch(err => {
+                btn.disabled = false;
+                btn.querySelector('span').textContent = 'Register Account';
+                showToast("Server error. Please try again.", "error");
+            });
+        });
+
+        // Submit Forgot Form
+        document.getElementById('forgot-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-forgot-submit');
+            btn.disabled = true;
+            btn.querySelector('span').textContent = 'Sending code...';
+
+            const email = document.getElementById('forgot-email').value;
+
+            fetch('/api/auth/forgot-password', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email })
+            })
+            .then(res => res.json())
+            .then(data => {
+                btn.disabled = false;
+                btn.querySelector('span').textContent = 'Send Code';
+                showToast("✓ Reset code sent! Check console logs.", "success");
+                window.resetEmailAddress = email;
+                setTimeout(() => {
+                    showForm('reset');
+                    document.getElementById('reset-code').value = '';
+                }, 1500);
+            })
+            .catch(err => {
+                btn.disabled = false;
+                btn.querySelector('span').textContent = 'Send Code';
+                showToast("Server error. Please try again.", "error");
+            });
+        });
+
+        // Submit Reset Form
+        document.getElementById('reset-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-reset-submit');
+            btn.disabled = true;
+            btn.querySelector('span').textContent = 'Updating...';
+
+            const payload = {
+                email: window.resetEmailAddress,
+                code: document.getElementById('reset-code').value,
+                password: document.getElementById('reset-password').value,
+                confirmPassword: document.getElementById('reset-confirm-password').value
+            };
+
+            fetch('/api/auth/reset-password', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json().then(data => ({ status: res.status, data })))
+            .then(({ status, data }) => {
+                btn.disabled = false;
+                btn.querySelector('span').textContent = 'Update Password';
+
+                if (status === 200) {
+                    showToast("✓ Password reset successful!", "success");
+                    setTimeout(() => {
+                        showForm('login');
+                    }, 1500);
+                } else {
+                    showToast(data.error || "Reset failed.", "error");
+                }
+            })
+            .catch(err => {
+                btn.disabled = false;
+                btn.querySelector('span').textContent = 'Update Password';
+                showToast("Server error. Please try again.", "error");
+            });
+        });
+
+
+
+        // Initialization
+        renderHeader();
+    </script>
+</body>
+</html>

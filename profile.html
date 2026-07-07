@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | LiveKitchen</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .profile-wrapper {
+            max-width: 800px;
+            margin: 120px auto 60px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .profile-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .profile-side-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .profile-main-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .profile-avatar-large {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 0 20px rgba(255, 120, 0, 0.3);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-glass);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Sora', sans-serif;
+        }
+
+        .stat-lbl {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .fav-list {
+            margin-top: 1rem;
+        }
+
+        .fav-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-glass);
+            padding: 0.8rem 1.2rem;
+            border-radius: var(--radius-sm);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Modal styling */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: #111;
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            max-width: 480px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .toast-notif {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #222;
+            color: #fff;
+            border-left: 5px solid #4dff88;
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-sm);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 20000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .toast-notif.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast-notif.error {
+            border-left-color: #ff4d4d;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🍳</span>
+                <span class="logo-text">LiveKitchen</span>
+            </a>
+            <nav class="nav-bar" id="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="menu.html" class="nav-link">Menu</a>
+                <a href="takeaway.html" class="nav-link">Table & Takeaway</a>
+                <a href="live.html" class="nav-link">Live Kitchen</a>
+                <a href="reviews.html" class="nav-link">Reviews</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <div class="nav-indicator"></div>
+            </nav>
+            <div id="user-header-area"></div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="profile-wrapper">
+            
+            <!-- Side profile card -->
+            <div class="profile-side-card">
+                <img id="profile-avatar" class="profile-avatar-large" src="" alt="Avatar">
+                <h3 id="profile-name" style="margin-bottom: 0.25rem; font-family: 'Sora', sans-serif;"></h3>
+                <p id="profile-role" style="font-size: 0.8rem; text-transform: uppercase; color: var(--primary); letter-spacing: 1px; font-weight: 600; margin-bottom: 1rem;"></p>
+                <p id="profile-email" style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;"></p>
+                
+                <div style="display: flex; flex-direction: column; gap: 0.8rem;">
+                    <button class="btn btn-outline btn-block" onclick="openEditModal()">Edit Profile</button>
+                    <button class="btn btn-primary btn-block" style="background: transparent; border: 1px solid #ff4d4d; color: #ff4d4d;" onclick="handleLogout()">Log Out</button>
+                    <a href="admin.html" id="admin-panel-link" class="btn btn-primary btn-block" style="display: none;">🔧 Admin Panel</a>
+                </div>
+            </div>
+
+            <!-- Main info card -->
+            <div class="profile-main-card">
+                <h2 style="margin-bottom: 2rem; font-family: 'Sora', sans-serif;">Dashboard Overview</h2>
+                
+                <!-- Stats grid -->
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-num" id="stat-orders">0</div>
+                        <div class="stat-lbl">Total Orders</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num" id="stat-reviews">0</div>
+                        <div class="stat-lbl">Reviews Given</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-num" id="stat-verified">No</div>
+                        <div class="stat-lbl">Verified Account</div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <h4 style="font-family: 'Sora', sans-serif; color: white;">Account details:</h4>
+                    <ul style="list-style: none; padding-left: 0; margin-top: 0.8rem;">
+                        <li style="margin-bottom: 0.5rem;"><strong style="color: var(--text-muted);">Member Since:</strong> <span id="profile-joined"></span></li>
+                        <li style="margin-bottom: 0.5rem;"><strong style="color: var(--text-muted);">Loyalty Tier:</strong> Gold Kitchen Explorer (Simulated)</li>
+                    </ul>
+                </div>
+
+                <!-- Favorite Restaurants -->
+                <div>
+                    <h4 style="font-family: 'Sora', sans-serif; color: white; margin-bottom: 1rem;">❤️ Favorite Locations</h4>
+                    <div id="favorites-list" class="fav-list">
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">You haven't favorited any locations yet. Visited locations and tap ❤️ on the Reviews hub.</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal" id="edit-profile-modal">
+        <div class="modal-content">
+            <button class="close-modal-btn" onclick="closeEditModal()">&times;</button>
+            <h3 style="margin-bottom: 1.5rem; font-family: 'Sora', sans-serif;">Edit Profile Details</h3>
+            
+            <form id="edit-profile-form">
+                <div class="form-group">
+                    <label for="edit-name">Full Name</label>
+                    <input type="text" id="edit-name" class="custom-input" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-current-password">Current Password (optional)</label>
+                    <input type="password" id="edit-current-password" class="custom-input" placeholder="Enter only to update password">
+                </div>
+                <div class="form-group">
+                    <label for="edit-new-password">New Password</label>
+                    <input type="password" id="edit-new-password" class="custom-input" placeholder="••••••••">
+                </div>
+                <div class="form-group">
+                    <label for="edit-confirm-password">Confirm New Password</label>
+                    <input type="password" id="edit-confirm-password" class="custom-input" placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" id="btn-edit-submit">
+                    <span>Save Changes</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-notif" id="toast-el">
+        <span class="toast-icon">✓</span>
+        <span class="toast-message">Success!</span>
+    </div>
+
+    <script>
+        // Profile Loader
+        function loadProfileData() {
+            fetch('/api/auth/profile')
+                .then(res => {
+                    if (res.ok) return res.json();
+                    throw new Error("Access Denied");
+                })
+                .then(user => {
+                    document.getElementById('profile-avatar').src = user.avatar;
+                    document.getElementById('profile-name').textContent = user.name;
+                    document.getElementById('profile-role').textContent = user.role;
+                    document.getElementById('profile-email').textContent = user.email;
+
+                    document.getElementById('stat-orders').textContent = user.orders_count;
+                    document.getElementById('stat-reviews').textContent = user.reviews_count;
+                    document.getElementById('stat-verified').textContent = user.is_verified ? "Yes ✓" : "No ✗";
+                    
+                    const joinedDate = new Date(user.created_at).toLocaleDateString('en-IN', {
+                        year: 'numeric', month: 'long', day: 'numeric'
+                    });
+                    document.getElementById('profile-joined').textContent = joinedDate;
+
+                    if (user.role === 'admin') {
+                        document.getElementById('admin-panel-link').style.display = 'block';
+                    }
+
+                    // Render header
+                    document.getElementById('user-header-area').innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <img src="${user.avatar}" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--primary);" alt="Avatar">
+                            <span style="color: white; font-size: 0.9rem; font-weight: 500;">${user.name}</span>
+                            <button onclick="handleLogout()" class="btn btn-sm btn-outline">Logout</button>
+                        </div>
+                    `;
+
+                    // Render favorites
+                    const favsHolder = document.getElementById('favorites-list');
+                    if (user.favorites && user.favorites.length > 0) {
+                        favsHolder.innerHTML = '';
+                        user.favorites.forEach(fav => {
+                            const div = document.createElement('div');
+                            div.className = 'fav-item';
+                            div.innerHTML = `
+                                <span style="font-weight: 500; color: white;">📍 ${fav.name}</span>
+                                <a href="reviews.html?restaurantId=${fav.id}" class="btn btn-sm btn-outline" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">View Reviews</a>
+                            `;
+                            favsHolder.appendChild(div);
+                        });
+                    }
+
+                    // Populate edit form
+                    document.getElementById('edit-name').value = user.name;
+                })
+                .catch(err => {
+                    window.location.href = 'auth.html?redirect=profile.html';
+                });
+        }
+
+        // Logout
+        function handleLogout() {
+            fetch('/api/auth/logout', { method: 'POST' })
+                .then(() => {
+                    showToast("Logged out successfully.");
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1000);
+                });
+        }
+
+        // Show toast
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast-el');
+            toast.className = `toast-notif show ${type}`;
+            toast.querySelector('.toast-icon').textContent = type === 'success' ? '✓' : '⚠️';
+            toast.querySelector('.toast-message').textContent = message;
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Modal triggers
+        function openEditModal() {
+            document.getElementById('edit-profile-modal').classList.add('active');
+            document.getElementById('edit-current-password').value = '';
+            document.getElementById('edit-new-password').value = '';
+            document.getElementById('edit-confirm-password').value = '';
+        }
+
+        function closeEditModal() {
+            document.getElementById('edit-profile-modal').classList.remove('active');
+        }
+
+        // Submit edit form
+        document.getElementById('edit-profile-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-edit-submit');
+            btn.disabled = true;
+            btn.querySelector('span').textContent = 'Saving...';
+
+            const payload = {
+                name: document.getElementById('edit-name').value,
+                password: document.getElementById('edit-current-password').value,
+                newPassword: document.getElementById('edit-new-password').value,
+                confirmPassword: document.getElementById('edit-confirm-password').value
+            };
+
+            fetch('/api/auth/profile/edit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json().then(data => ({ status: res.status, data })))
+            .then(({ status, data }) => {
+                btn.disabled = false;
+                btn.querySelector('span').textContent = 'Save Changes';
+
+                if (status === 200) {
+                    showToast("✓ Profile updated successfully!", "success");
+                    closeEditModal();
+                    loadProfileData();
+                } else {
+                    showToast(data.error || "Failed to update profile.", "error");
+                }
+            })
+            .catch(err => {
+                btn.disabled = false;
+                btn.querySelector('span').textContent = 'Save Changes';
+                showToast("Server error. Please try again.", "error");
+            });
+        });
+
+        // Initialize
+        loadProfileData();
+    </script>
+</body>
+</html>

@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Reviews & Ratings | LiveKitchen</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .reviews-layout {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 2rem;
+            margin: 120px auto 60px;
+            max-width: 1200px;
+        }
+
+        @media (max-width: 992px) {
+            .reviews-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Sidebar Elements */
+        .res-selector-card, .res-stats-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .rating-large-num {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: 'Sora', sans-serif;
+            line-height: 1;
+        }
+
+        .distribution-bar-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .dist-bar-bg {
+            flex-grow: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .dist-bar-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0;
+            transition: width 0.6s ease;
+        }
+
+        /* Main Section Elements */
+        .res-main-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .review-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.2rem;
+            border-bottom: 1px solid var(--border-glass);
+            padding-bottom: 1rem;
+        }
+
+        .review-user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .review-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--primary);
+        }
+
+        .verified-badge {
+            background: rgba(77, 255, 136, 0.15);
+            color: #4dff88;
+            border: 1px solid rgba(77, 255, 136, 0.3);
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .category-stars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            margin-bottom: 1.2rem;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 576px) {
+            .category-stars-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .star-item {
+            color: var(--primary);
+        }
+
+        .star-empty {
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Review Form Elements */
+        .stars-selector {
+            display: flex;
+            gap: 5px;
+            font-size: 1.4rem;
+            cursor: pointer;
+        }
+
+        .stars-selector span {
+            color: rgba(255, 255, 255, 0.2);
+            transition: color 0.2s ease;
+        }
+
+        .stars-selector span.active {
+            color: var(--primary);
+        }
+
+        .review-form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 576px) {
+            .review-form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+        }
+
+        /* Loading Skeletons */
+        .skeleton-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skeleton-card::after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: -150px;
+            top: 0;
+            height: 100%;
+            width: 150px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.05), transparent);
+            animation: loading-sweep 1.5s infinite;
+        }
+
+        @keyframes loading-sweep {
+            0% { left: -150px; }
+            100% { left: 100%; }
+        }
+
+        .toast-notif {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #222;
+            color: #fff;
+            border-left: 5px solid var(--primary);
+            padding: 1rem 1.5rem;
+            border-radius: var(--radius-sm);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 20000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .toast-notif.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast-notif.success { border-left-color: #4dff88; }
+        .toast-notif.error { border-left-color: #ff4d4d; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">🍳</span>
+                <span class="logo-text">LiveKitchen</span>
+            </a>
+            <nav class="nav-bar" id="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="menu.html" class="nav-link">Menu</a>
+                <a href="takeaway.html" class="nav-link">Table & Takeaway</a>
+                <a href="live.html" class="nav-link">Live Kitchen</a>
+                <a href="reviews.html" class="nav-link active">Reviews</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <div class="nav-indicator"></div>
+            </nav>
+            <div id="user-header-area"></div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="reviews-layout">
+            
+            <!-- Left Sidebar Info -->
+            <div class="res-sidebar">
+                
+                <!-- Restaurant Selector -->
+                <div class="res-selector-card">
+                    <h4 style="margin-bottom: 0.8rem; font-family: 'Sora', sans-serif;">📍 Select Location</h4>
+                    <select id="restaurant-select" class="custom-input" style="background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-glass); color: white; padding: 0.8rem; font-size: 0.95rem; cursor: pointer; width: 100%;">
+                        <!-- Dynamic options here -->
+                    </select>
+                </div>
+
+                <!-- Aggregated Stats Card -->
+                <div class="res-stats-card" id="res-stats-card-el" style="display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                        <h3 id="res-detail-name" style="font-family: 'Sora', sans-serif; font-size: 1.25rem;"></h3>
+                        <button id="btn-favorite-toggle" style="background: transparent; border: none; font-size: 1.4rem; cursor: pointer; color: rgba(255,255,255,0.3); transition: transform 0.2s ease;">❤️</button>
+                    </div>
+                    <p id="res-detail-cuisine" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;"></p>
+
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 1.5rem;">
+                        <div class="rating-large-num" id="res-rating-avg">0.0</div>
+                        <div>
+                            <div id="res-rating-stars" style="color: var(--primary); font-size: 1.1rem; margin-bottom: 0.2rem;"></div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);" id="res-reviews-count">0 reviews</div>
+                        </div>
+                    </div>
+
+                    <!-- Distributions -->
+                    <div style="border-top: 1px solid var(--border-glass); padding-top: 1.2rem;">
+                        <h5 style="margin-bottom: 0.8rem; font-family: 'Sora', sans-serif;">Rating Distribution</h5>
+                        <div id="rating-distribution-holder">
+                            <!-- Dynamic rows -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Main Area -->
+            <div class="res-main-section">
+
+                <!-- Write / Edit Review Card -->
+                <div class="review-card" id="write-review-card" style="display: none;">
+                    <h3 id="review-form-title" style="margin-bottom: 1.5rem; font-family: 'Sora', sans-serif;">Write a Review</h3>
+                    <form id="review-submit-form">
+                        
+                        <!-- Ratings Categories selector grid -->
+                        <div class="review-form-grid">
+                            <div class="form-group">
+                                <label>Food Quality</label>
+                                <div class="stars-selector" data-category="food_quality">
+                                    <span data-val="1">★</span><span data-val="2">★</span><span data-val="3">★</span><span data-val="4">★</span><span data-val="5">★</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Taste</label>
+                                <div class="stars-selector" data-category="taste">
+                                    <span data-val="1">★</span><span data-val="2">★</span><span data-val="3">★</span><span data-val="4">★</span><span data-val="5">★</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Hygiene</label>
+                                <div class="stars-selector" data-category="hygiene">
+                                    <span data-val="1">★</span><span data-val="2">★</span><span data-val="3">★</span><span data-val="4">★</span><span data-val="5">★</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Delivery Speed</label>
+                                <div class="stars-selector" data-category="delivery_speed">
+                                    <span data-val="1">★</span><span data-val="2">★</span><span data-val="3">★</span><span data-val="4">★</span><span data-val="5">★</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Packaging</label>
+                                <div class="stars-selector" data-category="packaging">
+                                    <span data-val="1">★</span><span data-val="2">★</span><span data-val="3">★</span><span data-val="4">★</span><span data-val="5">★</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Overall Experience</label>
+                                <div class="stars-selector" data-category="overall">
+                                    <span data-val="1">★</span><span data-val="2">★</span><span data-val="3">★</span><span data-val="4">★</span><span data-val="5">★</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="review-title">Review Title</label>
+                            <input type="text" id="review-title" class="custom-input" placeholder="Summarize your experience..." required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="review-description">Review Details</label>
+                            <textarea id="review-description" class="custom-input" rows="4" placeholder="Tell us more about the food, packing, and service..." required style="resize: none;"></textarea>
+                            <div style="text-align: right; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem;" id="desc-char-counter">0 / 500 characters</div>
+                        </div>
+
+                        <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 1.5rem;">
+                            <button type="button" id="btn-cancel-edit" class="btn btn-outline" style="display: none; padding: 0 1.5rem;">Cancel</button>
+                            <button type="submit" class="btn btn-primary" id="btn-submit-review" style="padding: 0 2rem;">
+                                <span>Submit Review</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+
+                <!-- Login Alert for Guests -->
+                <div class="review-card" id="login-alert-card" style="display: none; text-align: center; padding: 2rem;">
+                    <h4 style="margin-bottom: 0.5rem; font-family: 'Sora', sans-serif;">Want to write a review?</h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.2rem;">Log in to share your cooking assembly experience and rate prep speed.</p>
+                    <a href="auth.html?redirect=reviews.html" class="btn btn-primary" style="padding: 0.5rem 1.8rem; display: inline-block;">Login / Sign Up</a>
+                </div>
+
+                <h3 style="margin-top: 1rem; font-family: 'Sora', sans-serif; display: flex; align-items: center; justify-content: space-between;">
+                    <span>Customer Feedback</span>
+                </h3>
+
+                <!-- Review Items List Container -->
+                <div id="reviews-list-holder" style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <!-- Loading skeleton defaults -->
+                    <div class="skeleton-card"></div>
+                    <div class="skeleton-card"></div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-container" id="pagination-holder" style="display: none;">
+                    <button class="btn btn-sm btn-outline" id="btn-prev-page" style="padding: 0.4rem 1.2rem;">Previous</button>
+                    <span style="font-size: 0.9rem; color: var(--text-muted);" id="page-indicator">Page 1 of 1</span>
+                    <button class="btn btn-sm btn-outline" id="btn-next-page" style="padding: 0.4rem 1.2rem;">Next</button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-notif" id="toast-el">
+        <span class="toast-icon">✓</span>
+        <span class="toast-message">Success!</span>
+    </div>
+
+    <script>
+        // State variables
+        let selectedRestaurantId = null;
+        let currentPage = 1;
+        let selectedRatings = {
+            food_quality: 5, taste: 5, hygiene: 5, delivery_speed: 5, packaging: 5, overall: 5
+        };
+        let isEditing = false;
+        let editReviewId = null;
+
+        // Render header account state
+        function renderHeader() {
+            fetch('/api/auth/profile')
+                .then(res => {
+                    if (res.ok) return res.json();
+                    throw new Error();
+                })
+                .then(user => {
+                    document.getElementById('user-header-area').innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <img src="${user.avatar}" style="width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--primary);" alt="Avatar">
+                            <span style="color: white; font-size: 0.9rem; font-weight: 500;">${user.name}</span>
+                            <a href="profile.html" class="btn btn-sm btn-outline">Profile</a>
+                        </div>
+                    `;
+                    
+                    document.getElementById('write-review-card').style.display = 'block';
+                    document.getElementById('login-alert-card').style.display = 'none';
+                })
+                .catch(() => {
+                    document.getElementById('user-header-area').innerHTML = `
+                        <a href="auth.html?redirect=reviews.html" class="btn btn-sm btn-primary">Login</a>
+                    `;
+                    document.getElementById('write-review-card').style.display = 'none';
+                    document.getElementById('login-alert-card').style.display = 'block';
+                });
+        }
+
+        // Show Toast Helper
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast-el');
+            toast.className = `toast-notif show ${type}`;
+            toast.querySelector('.toast-icon').textContent = type === 'success' ? '✓' : '⚠️';
+            toast.querySelector('.toast-message').textContent = message;
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Load list of restaurants
+        function initRestaurants() {
+            fetch('/api/restaurants')
+                .then(res => res.json())
+                .then(list => {
+                    const select = document.getElementById('restaurant-select');
+                    select.innerHTML = '';
+                    
+                    list.forEach(r => {
+                        const opt = document.createElement('option');
+                        opt.value = r.id;
+                        opt.textContent = `📍 ${r.name}`;
+                        select.appendChild(opt);
+                    });
+
+                    // Check URL search params
+                    const params = new URLSearchParams(window.location.search);
+                    const qId = params.get('restaurantId');
+                    if (qId && list.some(r => r.id == qId)) {
+                        select.value = qId;
+                    }
+
+                    selectedRestaurantId = select.value;
+                    renderRestaurantStats(list.find(r => r.id == selectedRestaurantId));
+                    loadReviews();
+                });
+        }
+
+        // Render stats card
+        function renderRestaurantStats(res) {
+            if (!res) return;
+            document.getElementById('res-stats-card-el').style.display = 'block';
+            document.getElementById('res-detail-name').textContent = res.name;
+            document.getElementById('res-detail-cuisine').textContent = res.cuisine;
+            document.getElementById('res-rating-avg').textContent = res.rating.toFixed(1);
+            document.getElementById('res-reviews-count').textContent = `${res.reviews_count} reviews`;
+
+            // Favorite status check
+            fetch('/api/auth/profile')
+                .then(r => r.json())
+                .then(user => {
+                    const isFav = user.favorites.some(f => f.id == res.id);
+                    const favBtn = document.getElementById('btn-favorite-toggle');
+                    favBtn.style.color = isFav ? '#ff4d4d' : 'rgba(255, 255, 255, 0.3)';
+                    favBtn.style.transform = isFav ? 'scale(1.2)' : 'scale(1)';
+                })
+                .catch(() => {});
+
+            // Render stars
+            const fullStars = Math.floor(res.rating);
+            const halfStar = res.rating % 1 >= 0.5;
+            let starsStr = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= fullStars) starsStr += '★';
+                else if (i === fullStars + 1 && halfStar) starsStr += '½'; // Approximation
+                else starsStr += '☆';
+            }
+            document.getElementById('res-rating-stars').textContent = starsStr;
+
+            // Render distribution bars
+            const distHolder = document.getElementById('rating-distribution-holder');
+            distHolder.innerHTML = '';
+            for (let i = 5; i >= 1; i--) {
+                const count = res.distribution[i] || 0;
+                const pct = res.reviews_count > 0 ? (count / res.reviews_count) * 100 : 0;
+                
+                const row = document.createElement('div');
+                row.className = 'distribution-bar-row';
+                row.innerHTML = `
+                    <span style="width: 50px;">${i} Star</span>
+                    <div class="dist-bar-bg">
+                        <div class="dist-bar-fill" style="width: ${pct}%;"></div>
+                    </div>
+                    <span style="width: 25px; text-align: right;">${count}</span>
+                `;
+                distHolder.appendChild(row);
+            }
+        }
+
+        // Star click selector handler
+        document.querySelectorAll('.stars-selector').forEach(sel => {
+            const spans = sel.querySelectorAll('span');
+            const category = sel.getAttribute('data-category');
+            
+            // Set initial highlights
+            highlightStars(spans, selectedRatings[category]);
+
+            spans.forEach(star => {
+                star.addEventListener('click', () => {
+                    const val = parseInt(star.getAttribute('data-val'));
+                    selectedRatings[category] = val;
+                    highlightStars(spans, val);
+                });
+            });
+        });
+
+        function highlightStars(spans, count) {
+            spans.forEach(s => {
+                const val = parseInt(s.getAttribute('data-val'));
+                if (val <= count) {
+                    s.classList.add('active');
+                } else {
+                    s.classList.remove('active');
+                }
+            });
+        }
+
+        // Text area character limit validation
+        const descArea = document.getElementById('review-description');
+        if (descArea) {
+            descArea.addEventListener('input', () => {
+                let val = descArea.value;
+                if (val.length > 500) {
+                    descArea.value = val.slice(0, 500);
+                    val = descArea.value;
+                }
+                document.getElementById('desc-char-counter').textContent = `${val.length} / 500 characters`;
+            });
+        }
+
+        // Load reviews dynamically
+        function loadReviews() {
+            const listHolder = document.getElementById('reviews-list-holder');
+            listHolder.innerHTML = '<div class="skeleton-card"></div><div class="skeleton-card"></div>';
+
+            fetch(`/api/reviews?restaurantId=${selectedRestaurantId}&page=${currentPage}`)
+                .then(res => res.json())
+                .then(data => {
+                    listHolder.innerHTML = '';
+                    
+                    if (data.reviews.length === 0) {
+                        listHolder.innerHTML = `
+                            <div class="review-card" style="text-align: center; padding: 3rem;">
+                                <p style="color: var(--text-muted); margin: 0;">No reviews written yet. Be the first to share your experience!</p>
+                            </div>
+                        `;
+                        document.getElementById('pagination-holder').style.display = 'none';
+                        resetReviewForm();
+                        return;
+                    }
+
+                    // Render reviews list
+                    data.reviews.forEach(rev => {
+                        const dateStr = new Date(rev.created_at).toLocaleDateString('en-IN', {
+                            year: 'numeric', month: 'short', day: 'numeric'
+                        });
+
+                        let starsStr = '';
+                        for (let i = 1; i <= 5; i++) {
+                            starsStr += i <= rev.ratings.overall ? '★' : '☆';
+                        }
+
+                        const card = document.createElement('div');
+                        card.className = 'review-card';
+                        card.innerHTML = `
+                            <div class="review-header">
+                                <div class="review-user-info">
+                                    <img src="${rev.user.avatar}" class="review-avatar" alt="User Avatar">
+                                    <div>
+                                        <h5 style="color: white; font-weight: 600; font-family: 'Sora', sans-serif;">
+                                            ${rev.user.name} 
+                                            ${rev.user.is_verified ? '<span class="verified-badge">Verified</span>' : ''}
+                                        </h5>
+                                        <div style="display: flex; align-items: center; gap: 8px; margin-top: 0.2rem;">
+                                            <span style="color: var(--primary); font-size: 0.9rem;">${starsStr}</span>
+                                            <span style="color: var(--text-muted); font-size: 0.75rem;">${dateStr}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 8px;">
+                                    <button class="btn btn-sm btn-outline" style="padding: 0.2rem 0.6rem; font-size: 0.75rem;" onclick="handleHelpful(${rev.id}, this)">
+                                        👍 ${rev.has_voted_helpful ? 'Helpful (' + rev.helpful_count + ')' : 'Mark Helpful (' + rev.helpful_count + ')'}
+                                    </button>
+                                    <button class="btn btn-sm btn-outline" style="padding: 0.2rem 0.6rem; font-size: 0.75rem; border-color: rgba(255,255,255,0.1); color: var(--text-muted);" onclick="handleReport(${rev.id})">
+                                        🚨 Report
+                                    </button>
+                                </div>
+                            </div>
+
+                            <h4 style="color: white; margin-bottom: 0.5rem; font-family: 'Sora', sans-serif;">${rev.title}</h4>
+                            <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.2rem;">"${rev.description}"</p>
+
+                            <!-- Subcategories ratings grid -->
+                            <div class="category-stars-grid">
+                                <div>🍜 Quality: <span class="star-item">${'★'.repeat(rev.ratings.food_quality)}${'☆'.repeat(5 - rev.ratings.food_quality)}</span></div>
+                                <div>🌶️ Taste: <span class="star-item">${'★'.repeat(rev.ratings.taste)}${'☆'.repeat(5 - rev.ratings.taste)}</span></div>
+                                <div>🧼 Hygiene: <span class="star-item">${'★'.repeat(rev.ratings.hygiene)}${'☆'.repeat(5 - rev.ratings.hygiene)}</span></div>
+                                <div>🚀 Speed: <span class="star-item">${'★'.repeat(rev.ratings.delivery_speed)}${'☆'.repeat(5 - rev.ratings.delivery_speed)}</span></div>
+                                <div>📦 Packaging: <span class="star-item">${'★'.repeat(rev.ratings.packaging)}${'☆'.repeat(5 - rev.ratings.packaging)}</span></div>
+                                <div>👨‍🍳 Overall: <span class="star-item">${'★'.repeat(rev.ratings.overall)}${'☆'.repeat(5 - rev.ratings.overall)}</span></div>
+                            </div>
+                        `;
+                        listHolder.appendChild(card);
+                    });
+
+                    // Configure form for existing user review (Edit/Delete)
+                    if (data.userReview) {
+                        isEditing = true;
+                        editReviewId = data.userReview.id;
+                        document.getElementById('review-form-title').textContent = 'Modify Your Review';
+                        document.getElementById('review-title').value = data.userReview.title;
+                        document.getElementById('review-description').value = data.userReview.description;
+                        document.getElementById('desc-char-counter').textContent = `${data.userReview.description.length} / 500 characters`;
+                        document.getElementById('btn-submit-review').querySelector('span').textContent = 'Update Review';
+                        
+                        // Populate stars selectors
+                        selectedRatings = { ...data.userReview.ratings };
+                        document.querySelectorAll('.stars-selector').forEach(sel => {
+                            const category = sel.getAttribute('data-category');
+                            highlightStars(sel.querySelectorAll('span'), selectedRatings[category]);
+                        });
+
+                        document.getElementById('btn-cancel-edit').style.display = 'block';
+                    } else {
+                        resetReviewForm();
+                    }
+
+                    // Render Pagination
+                    const pag = data.pagination;
+                    if (pag.totalPages > 1) {
+                        document.getElementById('pagination-holder').style.display = 'flex';
+                        document.getElementById('page-indicator').textContent = `Page ${pag.page} of ${pag.totalPages}`;
+                        document.getElementById('btn-prev-page').disabled = pag.page === 1;
+                        document.getElementById('btn-next-page').disabled = pag.page === pag.totalPages;
+                    } else {
+                        document.getElementById('pagination-holder').style.display = 'none';
+                    }
+                });
+        }
+
+        function resetReviewForm() {
+            isEditing = false;
+            editReviewId = null;
+            document.getElementById('review-form-title').textContent = 'Write a Review';
+            document.getElementById('review-title').value = '';
+            document.getElementById('review-description').value = '';
+            document.getElementById('desc-char-counter').textContent = '0 / 500 characters';
+            document.getElementById('btn-submit-review').querySelector('span').textContent = 'Submit Review';
+            document.getElementById('btn-cancel-edit').style.display = 'none';
+            
+            selectedRatings = {
+                food_quality: 5, taste: 5, hygiene: 5, delivery_speed: 5, packaging: 5, overall: 5
+            };
+            document.querySelectorAll('.stars-selector').forEach(sel => {
+                highlightStars(sel.querySelectorAll('span'), 5);
+            });
+        }
+
+        // Cancel Edit handler
+        document.getElementById('btn-cancel-edit').addEventListener('click', () => {
+            resetReviewForm();
+        });
+
+        // Submit form
+        document.getElementById('review-submit-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-submit-review');
+            btn.disabled = true;
+
+            const payload = {
+                restaurantId: selectedRestaurantId,
+                title: document.getElementById('review-title').value,
+                description: document.getElementById('review-description').value,
+                ratings: selectedRatings
+            };
+
+            const endpoint = isEditing ? '/api/reviews/edit' : '/api/reviews/add';
+            if (isEditing) payload.reviewId = editReviewId;
+
+            fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json().then(data => ({ status: res.status, data })))
+            .then(({ status, data }) => {
+                btn.disabled = false;
+                if (status === 200 || status === 201) {
+                    showToast(isEditing ? "✓ Review Updated!" : "✓ Review Submitted!", "success");
+                    resetReviewForm();
+                    // Reload restaurant details and review list
+                    fetch('/api/restaurants').then(r => r.json()).then(list => {
+                        renderRestaurantStats(list.find(r => r.id == selectedRestaurantId));
+                    });
+                    loadReviews();
+                } else {
+                    showToast(data.error || "Review submission failed.", "error");
+                }
+            })
+            .catch(() => {
+                btn.disabled = false;
+                showToast("Server error.", "error");
+            });
+        });
+
+        // Toggle Helpful Votes
+        function handleHelpful(id, btn) {
+            fetch(`/api/reviews/${id}/helpful`, { method: 'POST' })
+                .then(res => res.json().then(data => ({ status: res.status, data })))
+                .then(({ status, data }) => {
+                    if (status === 200) {
+                        showToast(data.message);
+                        loadReviews();
+                    } else {
+                        showToast(data.error || "Login required to vote helpful.", "error");
+                    }
+                });
+        }
+
+        // Report Review
+        function handleReport(id) {
+            fetch(`/api/reviews/${id}/report`, { method: 'POST' })
+                .then(res => res.json().then(data => ({ status: res.status, data })))
+                .then(({ status, data }) => {
+                    if (status === 200) {
+                        showToast("✓ Review reported to administrators.");
+                    } else {
+                        showToast(data.error || "Login required to report reviews.", "error");
+                    }
+                });
+        }
+
+        // Select changes
+        document.getElementById('restaurant-select').addEventListener('change', (e) => {
+            selectedRestaurantId = e.target.value;
+            currentPage = 1;
+            fetch('/api/restaurants')
+                .then(r => r.json())
+                .then(list => {
+                    renderRestaurantStats(list.find(r => r.id == selectedRestaurantId));
+                });
+            loadReviews();
+        });
+
+        // Toggle Favorites
+        document.getElementById('btn-favorite-toggle').addEventListener('click', () => {
+            fetch(`/api/restaurants/${selectedRestaurantId}/favorite`, { method: 'POST' })
+                .then(res => res.json().then(data => ({ status: res.status, data })))
+                .then(({ status, data }) => {
+                    if (status === 200) {
+                        showToast(data.message);
+                        const favBtn = document.getElementById('btn-favorite-toggle');
+                        favBtn.style.color = data.isFavorite ? '#ff4d4d' : 'rgba(255, 255, 255, 0.3)';
+                        favBtn.style.transform = data.isFavorite ? 'scale(1.2)' : 'scale(1)';
+                    } else {
+                        showToast(data.error || "Login required.", "error");
+                    }
+                });
+        });
+
+        // Pagination buttons
+        document.getElementById('btn-prev-page').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                loadReviews();
+            }
+        });
+
+        document.getElementById('btn-next-page').addEventListener('click', () => {
+            currentPage++;
+            loadReviews();
+        });
+
+        // Init
+        renderHeader();
+        initRestaurants();
+    </script>
+</body>
+</html>

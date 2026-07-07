@@ -76,6 +76,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const timelineItems = document.querySelectorAll('.timeline-item');
 
     function updateScrollAnimations() {
+        // 0. Header Shrink on Scroll
+        const header = document.querySelector('.main-header');
+        if (header) {
+            if (window.scrollY > 40) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+
         // 1. Scrollspy Link Highlighting
         let current = '';
         sections.forEach(section => {
@@ -698,5 +708,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
 
 });
